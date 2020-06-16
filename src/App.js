@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import './App.css';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
@@ -6,6 +7,10 @@ import axios from 'axios';
 
 //components
 import Navbar from './components/Navbar';
+
+//redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const theme = createMuiTheme({
   palette: {
@@ -30,17 +35,19 @@ axios.defaults.baseURL = "https://us-central1-insightsolutions254build.cloudfunc
 
 const App = () => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className="App">
-      <Router>
-        <Navbar />
-        <div className="container">
-        <Switch>
-        </Switch>
-        </div>
-      </Router>
-    </div>
-    </MuiThemeProvider>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <div className="App">
+        <Router>
+          <Navbar />
+          <div className="container">
+          <Switch>
+          </Switch>
+          </div>
+        </Router>
+      </div>
+      </MuiThemeProvider>
+    </Provider>
   );
 }
 
