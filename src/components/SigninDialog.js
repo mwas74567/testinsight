@@ -62,6 +62,7 @@ const SigninDialog = ({ classes, loginUser, clearErrors, UI }) => {
     }
 
     const handleChange = event => {
+        clearErrors();
         setCredentials({
             ...credentials,
             [event.target.name]: event.target.value,

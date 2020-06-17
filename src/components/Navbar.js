@@ -1,6 +1,7 @@
 import React from 'react';
 import SigninDialog from './SigninDialog';
 import UserMenu from './UserMenu';
+import UserDrawer from './UserDrawer';
 
 //MUI
 import AppBar from '@material-ui/core/AppBar';
@@ -25,16 +26,26 @@ const mapStateToProps = state => ({
 });
 const Navbar = props => {
     const { classes, authenticated } = props;
+
+    const navMarkup = authenticated ? (
+        <>
+        <UserDrawer />
+        <div className={classes.actionContainer}>
+            <UserMenu />   
+        </div>
+        </>
+    ) : (
+        <>
+        <div className={classes.actionContainer}>
+            <SigninDialog />   
+        </div>
+        </>
+    );
+    
     return (
         <AppBar>
             <Toolbar className={classes.toolbar}>
-                <div className={classes.actionContainer}>
-                    {
-                        authenticated ?
-                        <UserMenu /> :
-                        <SigninDialog />
-                    }
-                </div>
+                {navMarkup}
             </Toolbar>
         </AppBar>
     )
