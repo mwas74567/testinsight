@@ -13,11 +13,12 @@ import Navbar from './components/Navbar';
 //pages
 import landing from './pages/landing';
 import home from './pages/home';
+import user from './pages/user';
 
 //redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { logoutUser } from './redux';
+import { logoutUser, getUser } from './redux';
 import { SET_AUTHENTICATED } from './redux/user/types';
 
 const theme = createMuiTheme({
@@ -41,7 +42,7 @@ const theme = createMuiTheme({
 });
 axios.defaults.baseURL = "https://us-central1-insightsolutions254build.cloudfunctions.net";
 
-let token = localStorage.Insights254AuthToken;
+let token = localStorage.Insights254AuthTokenClient;
 
 if(token){
   let decodedToken = jwtDecode(token);
@@ -50,6 +51,7 @@ if(token){
   }else{
     store.dispatch({type: SET_AUTHENTICATED});
     axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUser());
   }
 }
 
@@ -64,6 +66,7 @@ const App = () => {
           <Switch>
             <AuthRoute path="/" exact landing component={landing} />
             <AuthRoute path="/home" exact component={home} />
+            <AuthRoute path="/user" exact component={user} />
           </Switch>
           </div>
         </Router>

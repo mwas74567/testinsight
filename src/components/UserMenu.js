@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -26,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const UserMenu = ({ classes, logoutUser }) => {
-    const history = useHistory();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     //callbacks

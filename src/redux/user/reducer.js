@@ -1,7 +1,8 @@
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './types';
+import { SET_AUTHENTICATED, SET_UNAUTHENTICATED, SET_USER_INFO } from './types';
 
 const initialState = {
     authenticated: false,
+    credentials: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const userReducer = (state = initialState, action) => {
         
         case SET_UNAUTHENTICATED:
             return initialState;
+
+        case SET_USER_INFO:
+            state.credentials = action.payload;
+            return {
+                ...state,
+            }
         
         default: 
             return state;
