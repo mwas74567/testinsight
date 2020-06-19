@@ -38,8 +38,8 @@ const styles = {
         }
       },
       '& .profile-image': {
-        width: 300,
-        height: 300,
+        width: 200,
+        height: 200,
         objectFit: 'cover',
         maxWidth: '100%',
         borderRadius: '50%'
