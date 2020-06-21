@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -47,6 +48,11 @@ const UserMenu = ({ classes, logoutUser }) => {
             onClose={handleClose}
             open={Boolean(anchorEl)}
             >
+                <MenuItem onClick={handleClose} component={Link} to="/user">
+                    <Typography
+                    variant="body1"
+                    >Profile</Typography>
+                </MenuItem>
                 <MenuItem onClick={() => logoutUser()}>
                     <Typography
                     variant="body1"

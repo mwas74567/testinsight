@@ -14,6 +14,8 @@ import Navbar from './components/Navbar';
 import landing from './pages/landing';
 import home from './pages/home';
 import user from './pages/user';
+import departments from './pages/departments';
+import supervisors from './pages/supervisors';
 
 //redux
 import { Provider } from 'react-redux';
@@ -67,6 +69,8 @@ const App = () => {
             <AuthRoute path="/" exact landing component={landing} />
             <AuthRoute path="/home" exact component={home} />
             <AuthRoute path="/user" exact component={user} />
+            <AuthRoute path="/departments" exact component={departments} />
+            <AuthRoute path="/supervisors" exact component={supervisors} />
           </Switch>
           </div>
         </Router>

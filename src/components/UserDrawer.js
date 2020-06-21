@@ -17,7 +17,8 @@ import Typography from '@material-ui/core/Typography';
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 //Redux
 import { connect } from 'react-redux';
@@ -39,8 +40,6 @@ const UserDrawer = ({ classes, credentials }) => {
         setOpen(boolean);
     }
 
-    const topListMembers = ['First Item', 'Second Item', 'Third Item'];
-    const bottomListMembers = ['Fourth Item', 'Fifth Item', 'Sixth Item'];
     return (
         <>
             <IconButton
@@ -55,68 +54,55 @@ const UserDrawer = ({ classes, credentials }) => {
             onClose={() => toggleDrawer(false)}
             >
                 <List>
-                    {
-                    topListMembers.map((text, index) => {
-                        if(index === 0){
-                            return (
-                                <>
-                                <ListItem key={text} alignItems="flex-start" button component={Link} to="/user" onClick={() => toggleDrawer(false)}>
-                                    <ListItemAvater
-                                    >
-                                        <Avater alt={credentials.name} src={credentials.image_url}/>
-                                    </ListItemAvater>
-                                    <ListItemText
-                                    primary={credentials.name}
-                                    secondary={
-                                        <>
-                                        <Typography
-                                        variant="body1"
-                                        >{credentials.phone_number}</Typography>
-                                        </>
-                                    }
-                                    >
-                                    </ListItemText>
-                                </ListItem>
-                                <Divider/>
-                                </>
-                            )
+                    <ListItem alignItems="flex-start" button component={Link} to="/user" onClick={() => toggleDrawer(false)}>
+                        <ListItemAvater
+                        >
+                            <Avater alt={credentials.name} src={credentials.image_url}/>
+                        </ListItemAvater>
+                        <ListItemText
+                        primary={credentials.name}
+                        secondary={
+                            <>
+                            <Typography
+                            variant="body1"
+                            color="primary"
+                            >{credentials.phone_number}</Typography>
+                            </>
                         }
-                        if(index === 1){
-                            return (
-                                <>
-                                <ListItem key={text} button component={Link} to="/home" onClick={() => toggleDrawer(false)}>
-                                    <ListItemIcon
-                                    >
-                                        <HomeIcon/>
-                                    </ListItemIcon>
-                                    <ListItemText
-                                    primary="Home"
-                                    >
-                                    </ListItemText>
-                                </ListItem>
-                                </>
-                            )
-                        }
-                        
-                        return(
-                            <ListItem button key={text} onClick={() => toggleDrawer(false)}>
-                                <ListItemIcon><AccessTimeIcon /></ListItemIcon>
-                                <ListItemText>{text}</ListItemText>
-                            </ListItem>
-                        )
-                    })
-                    }
+                        >
+                        </ListItemText>
+                    </ListItem>
                     <Divider />
-                    {
-                    bottomListMembers.map((text, index) => {
-                        return(
-                            <ListItem button key={text} onClick={() => toggleDrawer(false)}>
-                                <ListItemIcon><AccessTimeIcon /></ListItemIcon>
-                                <ListItemText>{text}</ListItemText>
-                            </ListItem>
-                        )
-                    })
-                    }
+                    <ListItem button component={Link} to="/home" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <HomeIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Home"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/departments" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <AccountBalanceIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Departments"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/supervisors" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <SupervisorAccountIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Supervisors"
+                        >
+                        </ListItemText>
+                    </ListItem>
                 </List>
             </SwipeableDrawer>
         </>

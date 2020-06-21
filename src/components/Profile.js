@@ -22,57 +22,60 @@ import Timeline from '@material-ui/icons/Timeline';
 import { connect } from 'react-redux';
 import { uploadImage } from '../redux';
 
-const styles = {
-    paper: {
-      padding: 20,
-      // position: 'fixed',
-    },
-    profile: {
-      '& .image-wrapper': {
-        textAlign: 'center',
-        position: 'relative',
-        '& button': {
-          position: 'absolute',
-          top: '80%',
-          left: '70%'
-        }
-      },
-      '& .profile-image': {
-        width: 200,
-        height: 200,
-        objectFit: 'cover',
-        maxWidth: '100%',
-        borderRadius: '50%'
-      },
-      '& .profile-details': {
-        textAlign: 'center',
-        '& span, svg': {
-          verticalAlign: 'middle',
-        },
-        '& a': {
-          color: '#00bcd4',
-        }
-      },
-      '& hr': {
-        border: 'none',
-        margin: '0 0 10px 0',
-      },
-      '& svg.button': {
-        '&:hover': {
-          cursor: 'pointer'
-        }
-      }
-    },
-    buttons: {
+const styles = theme => ({
+  paper: {
+    padding: 20,
+    // position: 'fixed',
+  },
+  profile: {
+    '& .image-wrapper': {
       textAlign: 'center',
-      '& a': {
-        margin: '20px 10px'
+      position: 'relative',
+      '& button': {
+        position: 'absolute',
+        top: '80%',
+        left: '70%'
       }
     },
-    imageIcon: {
-        backgroundColor: 'rgba(0,0,0,.8)',
+    '& .profile-image': {
+      width: 200,
+      height: 200,
+      objectFit: 'cover',
+      maxWidth: '100%',
+      borderRadius: '50%'
+    },
+    '& .profile-details': {
+      paddingLeft: '30%',
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: 0,
+      },
+      '& span, svg': {
+        verticalAlign: 'middle',
+      },
+      '& a': {
+        color: '#00bcd4',
+      }
+    },
+    '& hr': {
+      border: 'none',
+      margin: '0 0 10px 0',
+    },
+    '& svg.button': {
+      '&:hover': {
+        cursor: 'pointer'
+      }
     }
+  },
+  buttons: {
+    textAlign: 'center',
+    '& a': {
+      margin: '20px 10px'
+    }
+  },
+  imageIcon: {
+      backgroundColor: 'rgba(0,0,0,.8)',
   }
+});
 
 const mapStateToProps = state => ({
     credentials: state.user.credentials,

@@ -2,6 +2,9 @@ import React from 'react';
 import SigninDialog from './SigninDialog';
 import UserMenu from './UserMenu';
 import UserDrawer from './UserDrawer';
+import { useLocation } from 'react-router-dom';
+import AddDepartmentDialog from './AddDepartmentDialog';
+import AddSupervisorDialog from './AddSupervisorDialog';
 
 //MUI
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +21,11 @@ const styles = {
     actionContainer: {
         position: 'absolute',
         right: '5%',
-    }
+    },
+    functionContainer: {
+        position: 'absolute',
+        right: '50%',
+    },
 }
 
 const mapStateToProps = state => ({
@@ -26,10 +33,23 @@ const mapStateToProps = state => ({
 });
 const Navbar = props => {
     const { classes, authenticated } = props;
+    const location = useLocation();
 
     const navMarkup = authenticated ? (
         <>
         <UserDrawer />
+        {
+            location.pathname === "/departments" &&
+            <div className={classes.functionContainer}>
+                <AddDepartmentDialog/>
+            </div>
+        }
+        {
+            location.pathname === "/supervisors" &&
+            <div className={classes.functionContainer}>
+                <AddSupervisorDialog/>
+            </div>
+        }
         <div className={classes.actionContainer}>
             <UserMenu />   
         </div>
