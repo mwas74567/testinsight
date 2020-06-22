@@ -16,6 +16,9 @@ import home from './pages/home';
 import user from './pages/user';
 import departments from './pages/departments';
 import supervisors from './pages/supervisors';
+import agents from './pages/agents';
+import supervisor from './pages/supervisor';
+import agent from './pages/agent';
 
 //redux
 import { Provider } from 'react-redux';
@@ -71,6 +74,9 @@ const App = () => {
             <AuthRoute path="/user" exact component={user} />
             <AuthRoute path="/departments" exact component={departments} />
             <AuthRoute path="/supervisors" exact component={supervisors} />
+            <AuthRoute path="/agents" exact component={agents} />
+            <AuthRoute path="/supervisors/:supervisorId" exact component={supervisor} />
+            <AuthRoute path="/agents/:agentId" exact component={agent} />
           </Switch>
           </div>
         </Router>

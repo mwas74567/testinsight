@@ -19,6 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import PersonIcon from '@material-ui/icons/Person';
 
 //Redux
 import { connect } from 'react-redux';
@@ -100,6 +101,16 @@ const UserDrawer = ({ classes, credentials }) => {
                         </ListItemIcon>
                         <ListItemText
                         primary="Supervisors"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/agents" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <PersonIcon color="primary"/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Agents"
                         >
                         </ListItemText>
                     </ListItem>

@@ -1,6 +1,35 @@
-import { SET_DEPARTMENTS, SET_SUPERVISORS } from './types';
+import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS } from './types';
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
 import axios from 'axios';
+
+
+export const setSupervisor = supervisor => ({
+    type: SET_SUPERVISOR,
+    payload: supervisor,
+});
+
+export const setAgent = agent => ({
+    type: SET_AGENT,
+    payload: agent,
+});
+
+export const getAgents = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        let res = await axios.get('/clientAdmin/subcollection/agents');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_AGENTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
 
 export const getDepartments = () => (async dispatch => {
     dispatch({type: START_LOADING});
@@ -56,6 +85,42 @@ export const addSupervisor = supervisorInfo => (async dispatch => {
     try{
         await axios.post('/clientAdmin/createSupervisor', supervisorInfo);
         dispatch(getSupervisors());
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const changeSupervisorStatus = (supervisorId, statusInfo) => (async dispatch => {
+    try{
+        await axios.put(`/clientAdmin/supervisors/${supervisorId}`, statusInfo);
+        dispatch({
+            type: CHANGE_SUPERVISOR_STATUS,
+            payload: {
+                supervisorId,
+                status: statusInfo.status,
+            }
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const changeAgentStatus = (agentId, statusInfo) => (async dispatch => {
+    try{
+        await axios.put(`/clientAdmin/agents/${agentId}`, statusInfo);
+        dispatch({
+            type: CHANGE_AGENT_STATUS,
+            payload: {
+                agentId,
+                status: statusInfo.status,
+            }
+        });
     } catch(error) {
         dispatch({
             type: SET_ERRORS,
