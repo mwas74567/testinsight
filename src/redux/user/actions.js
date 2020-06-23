@@ -47,7 +47,6 @@ export const uploadImage = formData => (async dispatch => {
         await axios.put('/app/uploadProfileImage', formData);
         dispatch({type: STOP_LOADING});
         dispatch(getUser());
-        window.location.reload();
     } catch(error) {
         console.error(error);
         dispatch({
