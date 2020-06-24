@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCountUp } from 'react-countup';
-import EditEntity from './EditEntity';
+import EditEntity from './dialogs/EditEntity';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 

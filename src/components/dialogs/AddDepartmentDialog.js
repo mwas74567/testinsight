@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 //redux
 import { connect } from 'react-redux';
-import { clearErrors, addDepartment } from '../redux';
+import { clearErrors, addDepartment } from '../../redux';
 
 const styles = theme => ({
     textField: {

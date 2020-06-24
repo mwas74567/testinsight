@@ -19,7 +19,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 //redux
 import { connect } from 'react-redux';
-import { addSupervisor, clearErrors } from '../redux';
+import { addSupervisor, clearErrors } from '../../redux';
 
 const styles = theme => ({
     textField: {

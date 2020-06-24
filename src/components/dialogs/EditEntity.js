@@ -16,7 +16,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //Redux
 import { connect } from 'react-redux';
-import { editInfo } from '../redux';
+import { editInfo } from '../../redux';
 
 const styles = {
     textField: {
