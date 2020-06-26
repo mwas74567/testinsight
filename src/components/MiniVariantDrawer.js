@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -109,6 +110,11 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
         </div>
         <Divider />
         <List>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Home"
+            >
             <ListItem button component={Link} to="/home">
             <ListItemIcon
             >
@@ -119,6 +125,13 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             >
             </ListItemText>
             </ListItem>
+            </Tooltip>
+
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Departments"
+            >
             <ListItem button component={Link} to="/departments">
             <ListItemIcon
             >
@@ -129,6 +142,13 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             >
             </ListItemText>
             </ListItem>
+            </Tooltip>
+
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Supervisors"
+            >
             <ListItem button component={Link} to="/supervisors">
             <ListItemIcon
             >
@@ -139,6 +159,13 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             >
             </ListItemText>
             </ListItem>
+            </Tooltip>
+
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Agents"
+            >
             <ListItem button component={Link} to="/agents">
             <ListItemIcon
             >
@@ -149,6 +176,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             >
             </ListItemText>
             </ListItem>
+            </Tooltip>
         </List>
       </Drawer>
     </>
