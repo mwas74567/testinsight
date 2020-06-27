@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 //MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -79,6 +79,14 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
+  toggleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    position: 'absolute',
+    bottom: 0,
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -87,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) => {
   const classes = useStyles();
+  const location = useLocation();
 
   return (
     <>
@@ -104,9 +113,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={open ? () => handleDrawerClose(): () => handleDrawerOpen()}>
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+          
         </div>
         <Divider />
         <List>
@@ -118,7 +125,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/home">
             <ListItemIcon
             >
-                <HomeIcon color="primary"/>
+                <HomeIcon color={location.pathname === "/home" ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Home"
@@ -135,7 +142,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/departments">
             <ListItemIcon
             >
-                <AccountBalanceIcon color="primary"/>
+                <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Departments"
@@ -152,7 +159,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/supervisors">
             <ListItemIcon
             >
-                <SupervisorAccountIcon color="primary"/>
+                <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Supervisors"
@@ -169,7 +176,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/agents">
             <ListItemIcon
             >
-                <PersonIcon color="primary"/>
+                <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Agents"
@@ -178,6 +185,16 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             </ListItem>
             </Tooltip>
         </List>
+        <div className={classes.toggleContainer}>
+          <Tooltip
+          placement="top"
+          title={open ? "minimize" : "expand"}
+          >
+            <IconButton onClick={open ? () => handleDrawerClose(): () => handleDrawerOpen()}>
+            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+          </Tooltip>
+        </div>
       </Drawer>
     </>
   );

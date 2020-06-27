@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -36,6 +36,7 @@ const mapStateToProps = state => ({
 const UserDrawer = ({ classes, credentials }) => {
 
     const [open, setOpen] = React.useState(false);
+    const location = useLocation();
 
     const toggleDrawer = (boolean) => {
         setOpen(boolean);
@@ -77,7 +78,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/home" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <HomeIcon color="primary"/>
+                            <HomeIcon color={location.pathname === "/home" ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Home"
@@ -87,7 +88,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/departments" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <AccountBalanceIcon color="primary"/>
+                            <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Departments"
@@ -97,7 +98,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/supervisors" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <SupervisorAccountIcon color="primary"/>
+                            <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Supervisors"
@@ -107,7 +108,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/agents" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <PersonIcon color="primary"/>
+                            <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Agents"
