@@ -1,6 +1,7 @@
-import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS } from './types';
+import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS, START_LOADING_DATA, STOP_LOADING_DATA } from './types';
 
 const initialState = {
+    loading: false,
     departments: [],
     supervisors: [],
     agents: [],
@@ -10,6 +11,16 @@ const initialState = {
 
 const dataReducer = (state = initialState, action) => {
     switch(action.type){
+        case START_LOADING_DATA:
+            return {
+                ...state,
+                loading: true,
+            }
+        case STOP_LOADING_DATA:
+            return {
+                ...state,
+                loading: false,
+            }
         case SET_DEPARTMENTS:
             return {
                 ...state,

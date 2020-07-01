@@ -39,6 +39,7 @@ const mapStateToProps = state => ({
     UI: state.UI,
     supervisors: state.data.supervisors,
     departments: state.data.departments,
+    loading: state.data.loading,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -46,7 +47,7 @@ const mapDispatchToProps = dispatch => ({
     clearErrors: () => dispatch(clearErrors()),
 });
 
-const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervisors, departments }) => {
+const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervisors, departments, loading }) => {
     
     const [open, setOpen] = React.useState(false);
     const [supervisorInfo, setSupervisorInfo] = React.useState({
@@ -68,14 +69,34 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
         clearErrors();
     }, [supervisors]);
 
+    //if data stopped loading, without errors, it means a request to the backend was successful
+    React.useEffect(() => {
+        if(
+            !loading &&
+            UI.errors &&
+            Object.keys(UI.errors).length === 0
+        ){
+            setOpen(false);
+            setSupervisorInfo({
+                name: '',
+                email: '',
+                phone_number: '',
+                department_id: departments.length > 0 ? departments[0].document_id : '',
+            });
+            clearErrors();
+        }
+    }, [loading]);
+
     //callbacks
     const handleOpen = () => {
         setOpen(true);
     }
 
     const handleClose = () => {
-        clearErrors();
-        setOpen(false);
+        if(!loading) {
+            clearErrors();
+            setOpen(false);
+        }
     }
 
     const handleSubmit = () => {
@@ -181,9 +202,9 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
                 color="primary"
                 variant="contained"
                 onClick={handleSubmit}
-                disabled={UI.loading}
+                disabled={loading}
                 >Add {
-                    UI.loading && <CircularProgress size={30} className={classes.spinner}/>
+                    loading && <CircularProgress size={30} className={classes.spinner}/>
                 }</Button>
             </DialogActions>
         </Dialog>

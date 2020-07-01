@@ -1,4 +1,4 @@
-import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS } from './types';
+import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS, START_LOADING_DATA, STOP_LOADING_DATA} from './types';
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
 import axios from 'axios';
 
@@ -68,28 +68,32 @@ export const getSupervisors = () => (async dispatch => {
 });
 
 export const addDepartment = departmentInfo => (async dispatch => {
-    dispatch({type: START_LOADING});
+    dispatch({type: START_LOADING_DATA});
     try{
         await axios.post('/clientAdmin/createDepartment', departmentInfo);
         dispatch(getDepartments());
+        dispatch({type: STOP_LOADING_DATA});
     } catch(error) {
         dispatch({
             type: SET_ERRORS,
             payload: error.response.data,
         });
+        dispatch({type: STOP_LOADING_DATA});
     }
 });
 
 export const addSupervisor = supervisorInfo => (async dispatch => {
-    dispatch({ type: START_LOADING });
+    dispatch({ type: START_LOADING_DATA });
     try{
         await axios.post('/clientAdmin/createSupervisor', supervisorInfo);
         dispatch(getSupervisors());
+        dispatch({type: STOP_LOADING_DATA});
     } catch(error) {
         dispatch({
             type: SET_ERRORS,
             payload: error.response.data,
         });
+        dispatch({type: STOP_LOADING_DATA});
     }
 });
 

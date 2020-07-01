@@ -2,7 +2,7 @@ import { SET_ERRORS, START_LOADING, STOP_LOADING, CLEAR_ERRORS } from './types';
 
 const initialState = {
     loading: false,
-    errors: null,
+    errors: {},
 }
 
 const UIReducer = (state = initialState, action) => {

@@ -36,7 +36,8 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
     UI: state.UI,
-    departments: state.data.departments
+    departments: state.data.departments,
+    loading: state.data.loading,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -44,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
     clearErrors: () => dispatch(clearErrors()),
 });
 
-const AddDepartmentDialog = ({ addDepartment, clearErrors, classes, UI, departments }) => {
+const AddDepartmentDialog = ({ addDepartment, clearErrors, classes, UI, departments, loading }) => {
     
     const [open, setOpen] = React.useState(false);
     const [departmentInfo, setDepartmentInfo] = React.useState({
@@ -62,14 +63,32 @@ const AddDepartmentDialog = ({ addDepartment, clearErrors, classes, UI, departme
         clearErrors();
     }, [departments]);
 
+    //if data stopped loading, without errors, it means a request to the backend was successful
+    React.useEffect(() => {
+        if(
+            !loading &&
+            UI.errors &&
+            Object.keys(UI.errors).length === 0
+        ){
+            setOpen(false);
+            setDepartmentInfo({
+                name: '',
+                description: '',
+            });
+            clearErrors();
+        }
+    }, [loading]);
+
     //callbacks
     const handleOpen = () => {
         setOpen(true);
     }
 
     const handleClose = () => {
-        clearErrors();
-        setOpen(false);
+        if(!loading) {
+            clearErrors();
+            setOpen(false);
+        }
     }
 
     const handleSubmit = () => {
@@ -144,9 +163,9 @@ const AddDepartmentDialog = ({ addDepartment, clearErrors, classes, UI, departme
                 color="primary"
                 variant="contained"
                 onClick={handleSubmit}
-                disabled={UI.loading}
+                disabled={loading}
                 >Add {
-                    UI.loading && <CircularProgress size={30} className={classes.spinner}/>
+                    loading && <CircularProgress size={30} className={classes.spinner}/>
                 }</Button>
             </DialogActions>
         </Dialog>
