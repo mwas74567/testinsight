@@ -1,4 +1,5 @@
 import { SET_ERRORS, START_LOADING, STOP_LOADING, CLEAR_ERRORS } from './types';
+import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
     loading: false,
@@ -32,6 +33,9 @@ const UIReducer = (state = initialState, action) => {
                 loading: false,
                 errors: null,
             }
+
+        case SET_UNAUTHENTICATED:
+            return initialState;
 
         default:
             return state;

@@ -1,4 +1,5 @@
 import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS, START_LOADING_DATA, STOP_LOADING_DATA } from './types';
+import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
     loading: false,
@@ -66,6 +67,8 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
                 agent: action.payload,
             }
+        case SET_UNAUTHENTICATED:
+            return initialState;
         default:
             return state;
     }
