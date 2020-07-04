@@ -31,7 +31,7 @@ const styles = theme => ({
     error: {
         color: 'red',
         fontSize: '.8rem',
-        marginTop: '5px',
+        marginTop: '7px',
     },
     spinner: {
         position: 'absolute',
