@@ -13,6 +13,9 @@ import ListItemAvater from '@material-ui/core/ListItemAvatar';
 import Avater from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LandscapeIcon from '@material-ui/icons/Landscape';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
@@ -92,6 +95,37 @@ const UserDrawer = ({ classes, credentials }) => {
                         </ListItemIcon>
                         <ListItemText
                         primary="Departments"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/territories" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <LandscapeIcon color={location.pathname === "/territories" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Territories"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/products" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <ShoppingCartIcon color={location.pathname === "/products" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Products"
+                        >
+                        </ListItemText>
+                    </ListItem>
+
+                    <ListItem button component={Link} to="/customers" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <AssignmentIndIcon color={location.pathname === "/customers" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Customers"
                         >
                         </ListItemText>
                     </ListItem>

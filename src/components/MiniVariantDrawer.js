@@ -17,6 +17,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import HomeIcon from '@material-ui/icons/Home';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LandscapeIcon from '@material-ui/icons/Landscape';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import PersonIcon from '@material-ui/icons/Person';
@@ -133,6 +136,22 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             </ListItemText>
             </ListItem>
             </Tooltip>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Territories"
+            >
+            <ListItem button component={Link} to="/territories">
+            <ListItemIcon
+            >
+                <LandscapeIcon color={location.pathname === "/territories" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Territories"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
 
             <Tooltip
             disableHoverListener={open}
@@ -180,6 +199,39 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             </ListItemIcon>
             <ListItemText
             primary="Agents"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Products"
+            >
+            <ListItem button component={Link} to="/products">
+            <ListItemIcon
+            >
+                <ShoppingCartIcon color={location.pathname === "/products" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Products"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
+
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Customers"
+            >
+            <ListItem button component={Link} to="/customers">
+            <ListItemIcon
+            >
+                <AssignmentIndIcon color={location.pathname === "/customers" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Customers"
             >
             </ListItemText>
             </ListItem>
