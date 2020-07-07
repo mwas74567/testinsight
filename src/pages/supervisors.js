@@ -7,25 +7,22 @@ import Grid from '@material-ui/core/Grid';
 
 //Redux
 import { connect } from 'react-redux';
-import { getSupervisors, getDepartments } from '../redux';
+import { getSupervisors, } from '../redux';
 
 const mapStateToProps = state => ({
     supervisors: state.data.supervisors,
-    departments: state.data.departments,
     loading: state.UI.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
     getSupervisors: () => dispatch(getSupervisors()),
-    getDepartments: () => dispatch(getDepartments()),
 })
 
-const Supervisors = ({ loading, supervisors, departments, getSupervisors, getDepartments}) => {
+const Supervisors = ({ loading, supervisors, getSupervisors, }) => {
 
     React.useEffect(() => {
         document.title = 'Client | Supervisors';
         if(supervisors.length === 0) getSupervisors();
-        if(departments.length === 0) getDepartments();
     }, []);
 
     const component = loading ? <SupervisorsSkeleton /> : <SupervisorsData />;

@@ -19,7 +19,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 //redux
 import { connect } from 'react-redux';
-import { addSupervisor, clearErrors } from '../../redux';
+import { addSupervisor, getDepartments, clearErrors } from '../../redux';
 
 const styles = theme => ({
     textField: {
@@ -43,13 +43,20 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    getDepartments: () => dispatch(getDepartments()),
     addSupervisor: supervisorInfo => dispatch(addSupervisor(supervisorInfo)),
     clearErrors: () => dispatch(clearErrors()),
 });
 
-const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervisors, departments, loading }) => {
+const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervisors, departments, loading, getDepartments }) => {
     
     const [open, setOpen] = React.useState(false);
+
+    //when the dialog is open for the first time, we should fetch the departments
+    React.useEffect(() => {
+        if(open && departments.length === 0) getDepartments();
+    },[open]);
+
     const [supervisorInfo, setSupervisorInfo] = React.useState({
         name: '',
         email: '',
@@ -178,11 +185,17 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
                 className={classes.textField}
                 fullWidth
                 >
-                {departments.map(department => (
-                    <MenuItem key={department.document_id} value={department.document_id}>
-                    {department.name}
-                    </MenuItem>
-                ))}
+                {
+                    (departments.length === 0  && loading) ? 
+                    <Typography variant="body1">please wait...</Typography>
+                    :(
+                        departments.map(department => (
+                            <MenuItem key={department.document_id} value={department.document_id}>
+                            {department.name}
+                            </MenuItem>
+                        ))
+                    )
+                }
                 </TextField>
                 {
                     UI.errors && UI.errors.error && <Typography 
@@ -202,9 +215,9 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
                 color="primary"
                 variant="contained"
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={loading || departments.length === 0}
                 >Add {
-                    loading && <CircularProgress size={30} className={classes.spinner}/>
+                    loading && departments.length !== 0 && <CircularProgress size={30} className={classes.spinner}/>
                 }</Button>
             </DialogActions>
         </Dialog>
