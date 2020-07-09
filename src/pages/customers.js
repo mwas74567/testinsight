@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
 const Customers = ({ getCustomers, customers, loading }) => {
 
     React.useEffect(() => {
-        document.title = 'Supervisor | Customers';
+        document.title = 'Client | Customers';
         if(customers.length === 0) getCustomers();
     }, []);
 
