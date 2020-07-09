@@ -88,16 +88,6 @@ const UserDrawer = ({ classes, credentials }) => {
                         >
                         </ListItemText>
                     </ListItem>
-                    <ListItem button component={Link} to="/departments" onClick={() => toggleDrawer(false)}>
-                        <ListItemIcon
-                        >
-                            <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
-                        </ListItemIcon>
-                        <ListItemText
-                        primary="Departments"
-                        >
-                        </ListItemText>
-                    </ListItem>
                     <ListItem button component={Link} to="/territories" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
@@ -108,6 +98,38 @@ const UserDrawer = ({ classes, credentials }) => {
                         >
                         </ListItemText>
                     </ListItem>
+                    <ListItem button component={Link} to="/departments" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Departments"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    
+                    <ListItem button component={Link} to="/supervisors" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Supervisors"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/agents" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Agents"
+                        >
+                        </ListItemText>
+                    </ListItem>
+
                     <ListItem button component={Link} to="/products" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
@@ -126,26 +148,6 @@ const UserDrawer = ({ classes, credentials }) => {
                         </ListItemIcon>
                         <ListItemText
                         primary="Customers"
-                        >
-                        </ListItemText>
-                    </ListItem>
-                    <ListItem button component={Link} to="/supervisors" onClick={() => toggleDrawer(false)}>
-                        <ListItemIcon
-                        >
-                            <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
-                        </ListItemIcon>
-                        <ListItemText
-                        primary="Supervisors"
-                        >
-                        </ListItemText>
-                    </ListItem>
-                    <ListItem button component={Link} to="/agents" onClick={() => toggleDrawer(false)}>
-                        <ListItemIcon
-                        >
-                            <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
-                        </ListItemIcon>
-                        <ListItemText
-                        primary="Agents"
                         >
                         </ListItemText>
                     </ListItem>

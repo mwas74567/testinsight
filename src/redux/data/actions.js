@@ -1,4 +1,6 @@
-import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS, START_LOADING_DATA, STOP_LOADING_DATA} from './types';
+import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS,
+     START_LOADING_DATA, STOP_LOADING_DATA, SET_TERRITORIES, ADD_TERRITORY, SET_CUSTOMERS, ADD_CUSTOMER, SET_PRODUCT_CATEGORIES,
+    CHANGE_PRODUCT_CATEGORY, ADD_PRODUCT_CATEGORY, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT} from './types';
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
 import axios from 'axios';
 
@@ -11,6 +13,78 @@ export const setSupervisor = supervisor => ({
 export const setAgent = agent => ({
     type: SET_AGENT,
     payload: agent,
+});
+
+export const getProductCategories = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        const res = await axios.get('/clientAdmin/subcollection/product_categories');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_PRODUCT_CATEGORIES,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getProducts = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        const res = await axios.get('/clientAdmin/subcollection/products');
+        dispatch({ type: CLEAR_ERRORS});
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_PRODUCTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+})
+
+export const getTerritories = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try {
+        const res = await axios.get('/clientAdmin/subcollection/territories');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_TERRITORIES,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getCustomers = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try {
+        const res = await axios.get('/clientAdmin/subcollection/customers');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_CUSTOMERS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
 });
 
 export const getAgents = () => (async dispatch => {
@@ -97,6 +171,57 @@ export const addSupervisor = supervisorInfo => (async dispatch => {
     }
 });
 
+export const addTerritory = territoryInfo => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+    try {
+        const res = await axios.post('/clientAdmin/createTerritory', territoryInfo);
+        dispatch({type: STOP_LOADING_DATA});
+        dispatch({
+            type: ADD_TERRITORY,
+            payload: res.data,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
+export const addCustomer = customerInfo => (async dispatch => {
+    dispatch({ type: START_LOADING_DATA });
+    try {
+        const res = await axios.post('/clientAdmin/createCustomer', customerInfo);
+        dispatch({type: STOP_LOADING_DATA });
+        dispatch({
+            type: ADD_CUSTOMER,
+            payload: res.data,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
+export const editTerritory = (newInfo, id) => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+    try{
+        await axios.put(`/app/resource/territories/${id}`, newInfo);
+        dispatch(getTerritories());
+        dispatch({ type: STOP_LOADING_DATA });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
 export const changeSupervisorStatus = (supervisorId, statusInfo) => (async dispatch => {
     try{
         await axios.put(`/clientAdmin/supervisors/${supervisorId}`, statusInfo);
@@ -130,5 +255,101 @@ export const changeAgentStatus = (agentId, statusInfo) => (async dispatch => {
             type: SET_ERRORS,
             payload: error.response.data,
         });
+    }
+});
+
+export const uploadProductCategoryImage = (formData, id) => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+
+    try {
+        const res = await axios.put(`/clientAdmin/uploadItemImage/product_categories/${id}`, formData);
+        dispatch({type: STOP_LOADING_DATA});
+        dispatch({
+            type: CHANGE_PRODUCT_CATEGORY,
+            payload: res.data,
+        });
+        dispatch(getProductCategories());
+    } catch(error) {
+        console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
+export const uploadProductImage = (formData, id) => (async dispatch => {
+    dispatch({ type: START_LOADING_DATA });
+
+    try{
+        const res = await axios.put(`/clientAdmin/uploadItemImage/products/${id}`, formData);
+        dispatch({ type: STOP_LOADING_DATA });
+        dispatch({
+            type: CHANGE_PRODUCT,
+            payload: res.data,
+        });
+        dispatch(getProducts());
+    } catch(error) {
+        console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+})
+
+export const addProductCategory = (categoryInfo, formData) => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+    try{
+        const _res = await axios.post('/clientAdmin/createProductCategory', categoryInfo);
+        let res = null;
+        if(formData) {
+            dispatch(uploadProductCategoryImage(formData, _res.data.document_id));
+            return;
+        }
+        else {
+            res = await axios.put('/clientAdmin/updateItemImage/product_categories', {item_id: _res.data.document_id});
+            dispatch({
+                type: ADD_PRODUCT_CATEGORY,
+                payload: res ? res.data : _res.data,
+            });
+            dispatch({type: STOP_LOADING_DATA});
+        }
+    } catch(error) {
+        console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
+export const addProduct = (productInfo, formData) => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+    try{
+        const _res = await axios.post('/clientAdmin/createProduct', productInfo);
+        let res = null;
+        if(formData) {
+            dispatch(uploadProductImage(formData, _res.data.document_id));
+            return;
+        }
+        else{
+            res = await axios.put('/clientAdmin/updateItemImage/products', {item_id: _res.data.document_id});
+            dispatch({
+                type: ADD_PRODUCT,
+                payload: res ? res.data: _res.data,
+            });
+            dispatch({type: STOP_LOADING_DATA});
+        }
+    } catch(error) {
+        console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
     }
 });

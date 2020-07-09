@@ -5,6 +5,8 @@ import UserDrawer from './UserDrawer';
 import { useLocation } from 'react-router-dom';
 import AddDepartmentDialog from './dialogs/AddDepartmentDialog';
 import AddSupervisorDialog from './dialogs/AddSupervisorDialog';
+import AddTerritoryDialog from './dialogs/AddTerritoryDialog';
+import AddCustomerDialog from './dialogs/AddCustomerDialog';
 import useWidth from './hooks/useWidth';
 import MiniVariantDrawer from './MiniVariantDrawer';
 
@@ -94,6 +96,18 @@ const Navbar = props => {
             location.pathname === "/supervisors" &&
             <div className={classes.functionContainer}>
                 <AddSupervisorDialog/>
+            </div>
+        }
+        {
+            location.pathname === "/territories" &&
+            <div className={classes.functionContainer}>
+                <AddTerritoryDialog/>
+            </div>
+        }
+        {
+            location.pathname === "/customers" &&
+            <div className={classes.functionContainer}>
+                <AddCustomerDialog/>
             </div>
         }
         <div className={classes.actionContainer}>
