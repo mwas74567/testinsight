@@ -1,6 +1,6 @@
-import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS,
+import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS,SET_TASKS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS, SET_AGENT, CHANGE_AGENT_STATUS,
      START_LOADING_DATA, STOP_LOADING_DATA, SET_TERRITORIES, ADD_TERRITORY, SET_CUSTOMERS, ADD_CUSTOMER, SET_PRODUCT_CATEGORIES,
-    CHANGE_PRODUCT_CATEGORY, ADD_PRODUCT_CATEGORY, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT} from './types';
+    CHANGE_PRODUCT_CATEGORY, ADD_PRODUCT_CATEGORY, SET_VISIT_REPORTS, SET_ACTION_REPORTS, SET_TASK_REPORTS, SET_CHECK_IN_REPORTS, SET_CHECK_IN_SUMMARY_REPORTS, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT,SET_SCHEDULES} from './types';
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ export const getProductCategories = () => (async dispatch => {
     try{
         const res = await axios.get('/clientAdmin/subcollection/product_categories');
         dispatch({ type: CLEAR_ERRORS });
-        dispatch({ type: STOP_LOADING });
+        dispatch({ type: STOP_LOADING }); 
         dispatch({
             type: SET_PRODUCT_CATEGORIES,
             payload: res.data.info,
@@ -32,7 +32,40 @@ export const getProductCategories = () => (async dispatch => {
         });
     }
 });
-
+export const getSchedules = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        const res = await axios.get('/clientAdmin/subcollection/visit_schedules');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING }); 
+        dispatch({
+            type: SET_SCHEDULES,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+export const getTasks = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try {
+        const res = await axios.get('/clientAdmin/subcollection/tasks');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_TASKS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
 export const getProducts = () => (async dispatch => {
     dispatch({ type: START_LOADING });
     try{
@@ -221,6 +254,21 @@ export const editTerritory = (newInfo, id) => (async dispatch => {
         dispatch({ type: STOP_LOADING_DATA });
     }
 });
+export const editDepartment = (newInfo, id) => (async dispatch => {
+    dispatch({type: START_LOADING_DATA});
+    try{
+        await axios.put(`/app/resource/departments/${id}`, newInfo);
+        dispatch(getDepartments());
+        dispatch({ type: STOP_LOADING_DATA });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
 
 export const changeSupervisorStatus = (supervisorId, statusInfo) => (async dispatch => {
     try{
@@ -351,5 +399,95 @@ export const addProduct = (productInfo, formData) => (async dispatch => {
             payload: error.response.data,
         });
         dispatch({ type: STOP_LOADING_DATA });
+    }
+});
+
+export const getVisitReports = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try {
+        const res = await axios.get('/clientAdmin/subcollection/visit_reports');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_VISIT_REPORTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getCheckInSummaryReports = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try {
+        const res = await axios.get('/clientAdmin/subcollection/check_in_summary_reports');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_CHECK_IN_SUMMARY_REPORTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getCheckInReports = summaryId => (async dispatch => {
+    dispatch({ type: START_LOADING_DATA });
+    try {
+        const res = await axios.get(`/clientAdmin/checkInReports/${summaryId}`);
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING_DATA });
+        dispatch({
+            type: SET_CHECK_IN_REPORTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getTaskReports = scheduleId => (async dispatch => {
+    dispatch({ type: START_LOADING_DATA });
+    try {
+        const res = await axios.get(`/clientAdmin/taskReports/${scheduleId}`);
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING_DATA });
+        dispatch({
+            type: SET_TASK_REPORTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getActionReports = taskReportId => (async dispatch => {
+    dispatch({ type: START_LOADING_DATA });
+    try {
+        const res = await axios.get(`/clientAdmin/actionReports/${taskReportId}`);
+        dispatch({ type: STOP_LOADING_DATA });
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({
+            type: SET_ACTION_REPORTS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
     }
 });

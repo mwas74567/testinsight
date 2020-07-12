@@ -1,5 +1,5 @@
 import React from 'react';
-import EditTerritoryDialog from './dialogs/EditTerritoryDialog';
+import dayjs from 'dayjs';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -11,14 +11,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip'
-
-//Icons
-import EditIcon from '@material-ui/icons/Edit';
-
-//redux
-import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
@@ -29,58 +21,76 @@ const styles = theme => ({
     },
 });
 
-const mapStateToProps = state => ({
-    territories: state.data.territories,
-})
-
-const Territories = ({ classes, territories }) => {
+const CheckInSummariesSkeleton = ({ classes }) => {
 
     const columns = [
         {
-            id: 'name',
-            label: 'Name',
+            id: 'agent_name',
+            label: 'Agent',
             minWidth: 170,
         },
         {
-            id: 'description',
-            label: 'Description',
+            id: 'department_name',
+            label: 'Department',
             minWidth: 170,
         },
         {
-            id: 'region',
-            label: 'Region',
+            id: 'customer_name',
+            label: 'Customer',
             minWidth: 170,
         },
         {
-          id: 'town',
-          label: 'town',
+          id: 'last_check_in_time',
+          label: 'Last\u00a0Check\u00a0In',
           minWidth: 170,
       },
         {
-            id: 'customers',
-            label: 'Number\u00a0Of\u00a0Customers',
+            id: 'proximity_in_meters',
+            label: 'Proximity\u00a0(meters)',
             minWidth: 170,
             align: 'right',
         },
-        {
-            id: 'edit',
-            label: '',
-            minWidth: 170,
-            align: 'right',
-        }
     ];
 
-    const createRows = territory => ({
-        name: territory.name,
-        description: territory.description,
-        town: territory.town,        
-        region: territory.region,
-        customers: territory.customer_ids.length,
-        document_id: territory.document_id,
-        edit: '',
-    })
-
-  const rows = territories.length > 0 ? territories.map( territory => createRows(territory)) : [];
+    const rows = [
+        {
+            agent_name: 'First Agent',
+            department_name: 'Example Department',
+            customer_name: 'Example Customer',
+            last_check_in_time: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
+            proximity_in_meters: 100
+        },
+        {
+            agent_name: 'Second Agent',
+            department_name: 'Example Department',
+            customer_name: 'Example Customer',
+            last_check_in_time: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
+            proximity_in_meters: 100
+        },
+        {
+            agent_name: 'Third Agent',
+            department_name: 'Example Department',
+            customer_name: 'Example Customer',
+            last_check_in_time: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
+            proximity_in_meters: 100
+        },
+        {
+            agent_name: 'Fourth Agent',
+            department_name: 'Example Department',
+            customer_name: 'Example Customer',
+            last_check_in_time: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
+            proximity_in_meters: 100
+        },
+        {
+            agent_name: 'Fifth Agent',
+            department_name: 'Example Department',
+            customer_name: 'Example Customer',
+            last_check_in_time: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
+            proximity_in_meters: 100
+        },
+    ];
+    
+    
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -118,25 +128,8 @@ const Territories = ({ classes, territories }) => {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}> 
-                        {column.id === 'edit' ? (
-                            <>
-                            <Tooltip
-                            placement="top"
-                            title="Edit this territory"
-                            >
-                                <EditTerritoryDialog
-                                oldInfo={{
-                                  name: row.name,
-                                  description: row.description,
-                                  region: row.region,
-                                  town: row.town,
-                                }}
-                                id={row.document_id}
-                                />
-                            </Tooltip>
-                            </>
-                        ) : column.format && typeof value === 'number' ? column.format(value) : value}
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
                   })}
@@ -159,6 +152,4 @@ const Territories = ({ classes, territories }) => {
   );
 }
 
-export default connect(
-    mapStateToProps,
-)(withStyles(styles)(React.memo(Territories)));
+export default withStyles(styles)(React.memo(CheckInSummariesSkeleton));

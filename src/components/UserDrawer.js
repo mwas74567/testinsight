@@ -16,6 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LandscapeIcon from '@material-ui/icons/Landscape';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
+
 
 //Icons
 import MenuIcon from '@material-ui/icons/Menu';
@@ -23,6 +25,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import PersonIcon from '@material-ui/icons/Person';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import ReportIcon from '@material-ui/icons/Report';
+
 
 //Redux
 import { connect } from 'react-redux';
@@ -148,6 +153,37 @@ const UserDrawer = ({ classes, credentials }) => {
                         </ListItemIcon>
                         <ListItemText
                         primary="Customers"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/tasks" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <AssignmentLateIcon color={location.pathname === "/tasks" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Tasks"
+                        >
+                        </ListItemText>
+                    </ListItem>
+
+                    <ListItem button component={Link} to="/schedules" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <ScheduleIcon color={location.pathname === "/schedules" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Schedules"
+                        >
+                        </ListItemText>
+                    </ListItem>
+                    <ListItem button component={Link} to="/reports" onClick={() => toggleDrawer(false)}>
+                        <ListItemIcon
+                        >
+                            <ReportIcon color={location.pathname === "/reports" ? "primary" : ""}/>
+                        </ListItemIcon>
+                        <ListItemText
+                        primary="Reports"
                         >
                         </ListItemText>
                     </ListItem>

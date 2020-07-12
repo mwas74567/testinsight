@@ -1,7 +1,8 @@
 import { SET_DEPARTMENTS, SET_SUPERVISORS, SET_AGENTS, SET_SUPERVISOR, CHANGE_SUPERVISOR_STATUS,
-     SET_AGENT, CHANGE_AGENT_STATUS, START_LOADING_DATA, STOP_LOADING_DATA, SET_TERRITORIES,
-    CHANGE_TERRITORY, ADD_TERRITORY, SET_CUSTOMERS, CHANGE_CUSTOMER, ADD_CUSTOMER, SET_PRODUCT_CATEGORIES,
-    CHANGE_PRODUCT_CATEGORY, ADD_PRODUCT_CATEGORY, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT } from './types';
+     SET_AGENT, CHANGE_AGENT_STATUS,SET_TASKS, START_LOADING_DATA, STOP_LOADING_DATA, SET_TERRITORIES,
+     SET_VISIT_REPORTS, SET_ACTION_REPORTS, SET_TASK_REPORTS, SET_CHECK_IN_REPORTS, SET_CHECK_IN_SUMMARY_REPORTS,
+     CHANGE_TERRITORY, CHANGE_DEPARTMENTS,ADD_TERRITORY, SET_CUSTOMERS, CHANGE_CUSTOMER, ADD_CUSTOMER, SET_PRODUCT_CATEGORIES,
+    CHANGE_PRODUCT_CATEGORY, ADD_PRODUCT_CATEGORY, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT,SET_SCHEDULES } from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -15,7 +16,15 @@ const initialState = {
     customers: [],
     product_categories: [],
     products: [],
+    schedules:[],
+    tasks:[],   
+    visitReports: [],
+    checkInSummaryReports: [],
+    checkInReports: [],
+    taskReports: [],
+    actionReports: [],
 }
+
 
 const dataReducer = (state = initialState, action) => {
     switch(action.type){
@@ -34,6 +43,13 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
                 departments: action.payload,
             }
+        case CHANGE_DEPARTMENTS:
+                state.departments.forEach((department, departmentId) => {
+                    if(department.document_id === action.payload.document_id) department = action.payload;
+                });
+                return {
+                    ...state,
+                }
         case SET_SUPERVISORS:
             return {
                 ...state,
@@ -78,6 +94,11 @@ const dataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 territories: action.payload,
+            }
+        case SET_TASKS:
+            return {
+                ...state,
+                tasks: action.payload,
             }
         case CHANGE_TERRITORY:
             state.territories.forEach((territory, territoryId) => {
@@ -141,6 +162,36 @@ const dataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: [action.payload, ...state.products],
+            }
+        case SET_SCHEDULES:
+            return {
+                ...state,
+                schedules: action.payload,
+            }
+            case SET_VISIT_REPORTS:
+            return {
+                ...state,
+                visitReports: action.payload,
+            }
+        case SET_CHECK_IN_REPORTS:
+            return {
+                ...state,
+                checkInReports: action.payload,
+            }
+        case SET_CHECK_IN_SUMMARY_REPORTS:
+            return {
+                ...state,
+                checkInSummaryReports: action.payload,
+            }
+        case SET_TASK_REPORTS:
+            return {
+                ...state,
+                taskReports: action.payload,
+            }
+        case SET_ACTION_REPORTS:
+            return {
+                ...state,
+                actionReports: action.payload,
             }
         case SET_UNAUTHENTICATED:
             return initialState;

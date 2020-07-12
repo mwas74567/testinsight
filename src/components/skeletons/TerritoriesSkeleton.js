@@ -44,6 +44,11 @@ const TerritoriesSkeleton = ({ classes }) => {
             minWidth: 170,
         },
         {
+          id: 'town',
+          label: 'Town',
+          minWidth: 170,
+      },
+        {
             id: 'customers',
             label: 'Number\u00a0Of\u00a0Customers',
             minWidth: 170,
@@ -61,21 +66,24 @@ const TerritoriesSkeleton = ({ classes }) => {
         {
             name: 'First Territory',
             description: 'This is the first territory',
-            region: 'Example Region',
+            region: 'Example Region',            
+            town: 'Example Town',
             customers: 0,
             edit: ''
         },
         {
             name: 'Second Territory',
             description: 'This is the second territory',
-            region: 'Example Region',
+            region: 'Example Region',            
+            town: 'Example Town',
             customers: 0,
             edit: ''
         },
         {
             name: 'Third Territory',
             description: 'This is the third territory',
-            region: 'Example Region',
+            region: 'Example Region',            
+            town: 'Example Town',
             customers: 0,
             edit: ''
         },
@@ -83,6 +91,7 @@ const TerritoriesSkeleton = ({ classes }) => {
             name: 'Fourth Territory',
             description: 'This is the fourth territory',
             region: 'Example Region',
+            town: 'Example Town',
             customers: 0,
             edit: ''
         },

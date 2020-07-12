@@ -1,5 +1,5 @@
 import React from 'react';
-import EditTerritoryDialog from './dialogs/EditTerritoryDialog';
+import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -17,7 +17,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
 
-//redux
+//Redux
 import { connect } from 'react-redux';
 
 const styles = theme => ({
@@ -30,14 +30,20 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    territories: state.data.territories,
+    tasks: state.data.tasks,
 })
 
-const Territories = ({ classes, territories }) => {
+const TasksSkeleton = ({ classes, tasks }) => {
+  const history = useHistory();
+
+   const changeUrl = (taskId) => {
+    history.push(`/tasks/${taskId}`);
+   }
+
 
     const columns = [
         {
-            id: 'name',
+            id: 'task_name',
             label: 'Name',
             minWidth: 170,
         },
@@ -47,40 +53,36 @@ const Territories = ({ classes, territories }) => {
             minWidth: 170,
         },
         {
-            id: 'region',
-            label: 'Region',
+            id: 'department_name',
+            label: 'Department\u00a0Name',
             minWidth: 170,
         },
         {
-          id: 'town',
-          label: 'town',
-          minWidth: 170,
-      },
-        {
-            id: 'customers',
-            label: 'Number\u00a0Of\u00a0Customers',
+            id: 'status',
+            label: 'Status',
             minWidth: 170,
-            align: 'right',
         },
         {
-            id: 'edit',
-            label: '',
+            id: 'number_of_actions',
+            label: 'Number\u00a0Of\u00a0Actions',
             minWidth: 170,
             align: 'right',
         }
     ];
+    
+    const createRows = task => {
+        const { task_name, description, department_name, status, number_of_actions, document_id} = task;
+        return {
+            task_name,
+            description,
+            department_name,
+            status,
+            number_of_actions, 
+            document_id
+        }
+    }
 
-    const createRows = territory => ({
-        name: territory.name,
-        description: territory.description,
-        town: territory.town,        
-        region: territory.region,
-        customers: territory.customer_ids.length,
-        document_id: territory.document_id,
-        edit: '',
-    })
-
-  const rows = territories.length > 0 ? territories.map( territory => createRows(territory)) : [];
+    const rows = tasks.length > 0 ? tasks.map(task => createRows(task)) : [];
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -114,29 +116,12 @@ const Territories = ({ classes, territories }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} onClick={() => changeUrl(row.document_id)} className={classes.selectable}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}> 
-                        {column.id === 'edit' ? (
-                            <>
-                            <Tooltip
-                            placement="top"
-                            title="Edit this territory"
-                            >
-                                <EditTerritoryDialog
-                                oldInfo={{
-                                  name: row.name,
-                                  description: row.description,
-                                  region: row.region,
-                                  town: row.town,
-                                }}
-                                id={row.document_id}
-                                />
-                            </Tooltip>
-                            </>
-                        ) : column.format && typeof value === 'number' ? column.format(value) : value}
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
                   })}
@@ -161,4 +146,4 @@ const Territories = ({ classes, territories }) => {
 
 export default connect(
     mapStateToProps,
-)(withStyles(styles)(React.memo(Territories)));
+)(withStyles(styles)(React.memo(TasksSkeleton)));
