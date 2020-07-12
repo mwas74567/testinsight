@@ -1,4 +1,6 @@
 import React from 'react';
+
+import ProfileShortcut from './ProfileShortcut';
 import SigninDialog from './dialogs/SigninDialog';
 import UserMenu from './UserMenu';
 import UserDrawer from './UserDrawer';
@@ -15,6 +17,7 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
 
 //Redux
 import { connect } from 'react-redux';
@@ -49,6 +52,20 @@ const styles = theme => (
                 duration: theme.transitions.duration.enteringScreen,
             }),
         },
+        titleContainer: {
+            position: 'absolute',
+            left: '10%',
+            [theme.breakpoints.down('md')]: {
+                left: '20%'
+            }
+        },
+        profileShortcut: {
+            position: 'absolute',
+            right: '10%',
+            [theme.breakpoints.down('md')]: {
+                display: 'none',
+            }
+        }
     }
 )
 
@@ -86,6 +103,9 @@ const Navbar = props => {
     const navMarkup = authenticated ? (
         <>
         {drawer}
+        <div className={classes.profileShortcut}>
+            <ProfileShortcut />
+        </div>
         {
             location.pathname === "/departments" &&
             <div className={classes.functionContainer}>
@@ -108,6 +128,49 @@ const Navbar = props => {
             location.pathname === "/customers" &&
             <div className={classes.functionContainer}>
                 <AddCustomerDialog/>
+            </div>
+        }
+        {/**title routes */}
+        {
+            location.pathname.startsWith("/home") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Home</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/territories") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Territories</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/departments") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Departments</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/supervisors") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Supervisors</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/agents") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Agents</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/products") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Products</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/customers") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Customers</Typography>
             </div>
         }
         <div className={classes.actionContainer}>

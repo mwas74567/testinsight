@@ -3,6 +3,7 @@ import { useCountUp } from 'react-countup';
 import EditEntity from './dialogs/EditEntity';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {Link} from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
@@ -74,6 +77,9 @@ const styles = theme => ({
   },
   imageIcon: {
       backgroundColor: 'rgba(0,0,0,.8)',
+  },
+  actionButtons: {
+    margin: '5px 5px 5px 0px',
   }
 });
 
@@ -167,6 +173,14 @@ const Profile = ({ classes, credentials, uploadImage }) => {
                     />
                     </div>
                 </div>
+                <Divider />
+                <Button
+                color="primary"
+                variant="contained"
+                component={Link}
+                to="/home"
+                className={classes.actionButtons}
+                >Back</Button>
             </Paper>
         </>
     )

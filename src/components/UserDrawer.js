@@ -81,7 +81,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/home" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <HomeIcon color={location.pathname === "/home" ? "primary" : ""}/>
+                            <HomeIcon color={location.pathname.startsWith("/home") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Home"
@@ -91,7 +91,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/territories" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <LandscapeIcon color={location.pathname === "/territories" ? "primary" : ""}/>
+                            <LandscapeIcon color={location.pathname.startsWith("/territories") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Territories"
@@ -101,7 +101,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/departments" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
+                            <AccountBalanceIcon color={location.pathname.startsWith("/departments") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Departments"
@@ -112,7 +112,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/supervisors" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
+                            <SupervisorAccountIcon color={location.pathname.startsWith("/supervisors") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Supervisors"
@@ -122,7 +122,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/agents" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
+                            <PersonIcon color={location.pathname.startsWith("/agents") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Agents"
@@ -133,7 +133,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/products" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <ShoppingCartIcon color={location.pathname === "/products" ? "primary" : ""}/>
+                            <ShoppingCartIcon color={location.pathname.startsWith("/products") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Products"
@@ -144,7 +144,7 @@ const UserDrawer = ({ classes, credentials }) => {
                     <ListItem button component={Link} to="/customers" onClick={() => toggleDrawer(false)}>
                         <ListItemIcon
                         >
-                            <AssignmentIndIcon color={location.pathname === "/customers" ? "primary" : ""}/>
+                            <AssignmentIndIcon color={location.pathname.startsWith("/customers") ? "primary" : ""}/>
                         </ListItemIcon>
                         <ListItemText
                         primary="Customers"

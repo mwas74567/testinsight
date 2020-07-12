@@ -128,7 +128,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/home">
             <ListItemIcon
             >
-                <HomeIcon color={location.pathname === "/home" ? "primary" : ""}/>
+                <HomeIcon color={location.pathname.startsWith("/home") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Home"
@@ -144,7 +144,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/territories">
             <ListItemIcon
             >
-                <LandscapeIcon color={location.pathname === "/territories" ? "primary" : ""}/>
+                <LandscapeIcon color={location.pathname.startsWith("/territories") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Territories"
@@ -161,7 +161,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/departments">
             <ListItemIcon
             >
-                <AccountBalanceIcon color={location.pathname === "/departments" ? "primary" : ""}/>
+                <AccountBalanceIcon color={location.pathname.startsWith("/departments") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Departments"
@@ -178,7 +178,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/supervisors">
             <ListItemIcon
             >
-                <SupervisorAccountIcon color={location.pathname === "/supervisors" ? "primary" : ""}/>
+                <SupervisorAccountIcon color={location.pathname.startsWith("/supervisors") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Supervisors"
@@ -195,7 +195,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/agents">
             <ListItemIcon
             >
-                <PersonIcon color={location.pathname === "/agents" ? "primary" : ""}/>
+                <PersonIcon color={location.pathname.startsWith("/agents") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Agents"
@@ -211,7 +211,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/products">
             <ListItemIcon
             >
-                <ShoppingCartIcon color={location.pathname === "/products" ? "primary" : ""}/>
+                <ShoppingCartIcon color={location.pathname.startsWith("/products") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Products"
@@ -228,7 +228,7 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             <ListItem button component={Link} to="/customers">
             <ListItemIcon
             >
-                <AssignmentIndIcon color={location.pathname === "/customers" ? "primary" : ""}/>
+                <AssignmentIndIcon color={location.pathname.startsWith("/customers") ? "primary" : ""}/>
             </ListItemIcon>
             <ListItemText
             primary="Customers"
