@@ -1,4 +1,5 @@
 import React from 'react';
+import EditDepartmentDialog from './dialogs/EditDepartmentDialog';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
+import Tooltip from '@material-ui/core/Tooltip'
 
 //Redux
 import { connect } from 'react-redux';
@@ -46,15 +48,36 @@ const Departments = ({ classes, departments }) => {
             label: 'Description',
             minWidth: 170,
         },
+        {
+          id: 'edit',
+          label: '',
+          minWidth: 170,
+          align: 'right',
+      }
     ];
+    // const [status, setStatus] = React.useState(department.status ? department.status: "active");
 
-    const createRows = (index, name, description) => ({
+    // const disableAgent = () => {
+    //     changeAgentStatus(department.document_id, { status: "expired"});
+    //     setStatus("expired");
+    // }
+
+    // const activateAgent = () => {
+    //     changeAgentStatus(department.document_id, { status: "active"});
+    //     setStatus("active");
+    // }
+
+    const createRows = (index, name, description,id) => ({
         number: index + 1,
         name,
         description,
+        edit: '',
+        status:'',
+        id,
+
     });
 
-    const rows = departments.map((department, index) => createRows(index, department.name, department.description));    
+    const rows = departments.map((department, index) => createRows(index, department.name, department.description,department.document_id));    
     
 
   const [page, setPage] = React.useState(0);
@@ -94,7 +117,37 @@ const Departments = ({ classes, departments }) => {
                     const value = row[column.id];
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                        {column.id === 'edit' ? (
+                            <>
+                            <Tooltip
+                            placement="top"
+                            title="Edit this Department"
+                            >
+                                <EditDepartmentDialog
+                                oldInfo={{
+                                  name: row.name,
+                                  description: row.description,
+                                }}
+                                id={row.id}
+                                />
+                            </Tooltip>
+                            </>
+                        ) : column.format && typeof value === 'number' ? column.format(value) : value}
+                       {/* {
+                    status === "active" ?
+                    <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={disableAgent}
+                    className={classes.buttons}
+                    >Disable</Button> :
+                    <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={activateAgent}
+                    className={classes.buttons}
+                    >Activate</Button>
+                } */}
                       </TableCell>
                     );
                   })}

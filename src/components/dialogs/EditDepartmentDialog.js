@@ -18,7 +18,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //redux
 import { connect } from 'react-redux';
-import { editTerritory } from '../../redux';
+import { editDepartment } from '../../redux';
 
 const styles = theme => ({
     textField: {
@@ -40,13 +40,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    editTerritory: (newInfo, id) => dispatch(editTerritory(newInfo, id)),
+    editDepartment: (newInfo, id) => dispatch( editDepartment(newInfo, id)),
 });
 
-const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading }) => {
+const EditDepartmentDialog = ({  editDepartment, classes, UI, oldInfo, id, loading }) => {
     
     const [open, setOpen] = React.useState(false);
-    const [territoryInfo, setTerritoryInfo] = React.useState(() => oldInfo);
+    const [departmentInfo, setDepartmentInfo] = React.useState(() => oldInfo);
 
     //callbacks
     const handleOpen = () => {
@@ -59,25 +59,24 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
 
     const handleSubmit = () => {
         if(
-            territoryInfo.name.trim() !== '' &&
-            territoryInfo.description.trim() !== '' &&
-            territoryInfo.region.trim() !== '' &&
-            !(territoryInfo.name === oldInfo.name && territoryInfo.description === oldInfo.description && territoryInfo.region === oldInfo.region)
+            departmentInfo.name.trim() !== '' &&
+            departmentInfo.description.trim() !== '' &&
+            !(departmentInfo.name === oldInfo.name && departmentInfo.description === oldInfo.description)
         ){
-            editTerritory(territoryInfo, id);
+            editDepartment(departmentInfo, id);
         }
-        if(territoryInfo.name === oldInfo.name && territoryInfo.description === oldInfo.description && territoryInfo.region === oldInfo.region) handleClose();
+        if(departmentInfo.name === oldInfo.name && departmentInfo.description === oldInfo.description) handleClose();
     }
 
     const handleChange = event => {
-        setTerritoryInfo({
-            ...territoryInfo,
+        setDepartmentInfo({
+            ...departmentInfo,
             [event.target.name] : event.target.value,
         })
     }
     return (
         <>    
-        <Tooltip title="Edit Territory" placement="top">
+        <Tooltip title="Edit Department" placement="top">
             <IconButton onClick={handleOpen}>
                 <EditIcon color="primary"/>
             </IconButton>
@@ -89,7 +88,7 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
         onClose={handleClose}
         >
             <DialogTitle>
-                Edit Territory
+                Edit Department
             </DialogTitle>
             <DialogContent
             >
@@ -97,48 +96,24 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
                 {/* <TextField
                 name="name"
                 type="text"
-                value={territoryInfo.name}
+                value={departmentInfo.name}
                 onChange={handleChange}
                 label="Name"
                 placeholder="Name"
-                error={territoryInfo.name.trim() === ''}
-                helperText={territoryInfo.name.trim() === '' && "Must not be empty"}
+                error={departmentInfo.name.trim() === ''}
+                helperText={departmentInfo.name.trim() === '' && "Must not be empty"}
                 className={classes.textField}
                 fullWidth
                 /> */}
                 <TextField
                 name="description"
                 type="text"
-                value={territoryInfo.description}
+                value={departmentInfo.description}
                 onChange={handleChange}
                 label="Description"
                 placeholder="Description"
-                error={territoryInfo.description.trim() === ''}
-                helperText={territoryInfo.description.trim() === '' && "Must not be empty"}
-                className={classes.textField}
-                fullWidth
-                />
-                <TextField
-                name="region"
-                type="text"
-                value={territoryInfo.region}
-                onChange={handleChange}
-                label="Region"
-                placeholder="Region"
-                error={territoryInfo.region.trim() === ''}
-                helperText={territoryInfo.region.trim() === '' && "Must not be empty"}
-                className={classes.textField}
-                fullWidth
-                />
-                 <TextField
-                name="town"
-                type="text"
-                value={territoryInfo.town}
-                onChange={handleChange}
-                label="Town"
-                placeholder="Town"
-                error={territoryInfo.town.trim() === ''}
-                helperText={territoryInfo.town.trim() === '' && "Must not be empty"}
+                error={departmentInfo.description.trim() === ''}
+                helperText={departmentInfo.description.trim() === '' && "Must not be empty"}
                 className={classes.textField}
                 fullWidth
                 />
@@ -167,4 +142,4 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
 export default connect(
     mapStateToProps, 
     mapDispatchToProps,
-)(withStyles(styles)(React.memo(EditTerritoryDialog)));
+)(withStyles(styles)(React.memo(EditDepartmentDialog)));

@@ -1,5 +1,6 @@
 import React from 'react';
-import EditTerritoryDialog from './dialogs/EditTerritoryDialog';
+import dayjs from 'dayjs';
+import ExpandCheckInSummaryDialog from './dialogs/ExpandCheckInSummaryDialog';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -11,14 +12,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip'
-
-//Icons
-import EditIcon from '@material-ui/icons/Edit';
 
 //redux
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const styles = theme => ({
     root: {
@@ -27,60 +23,61 @@ const styles = theme => ({
     container: {
     maxHeight: 440,
     },
+    selectable: {
+      cursor: 'pointer',
+    },
 });
 
 const mapStateToProps = state => ({
-    territories: state.data.territories,
+  checkInSummaryReports: state.data.checkInSummaryReports,
 })
 
-const Territories = ({ classes, territories }) => {
+const CheckInSummaries = ({ classes, checkInSummaryReports }) => {
 
     const columns = [
         {
-            id: 'name',
-            label: 'Name',
+            id: 'agent_name',
+            label: 'Agent',
             minWidth: 170,
         },
         {
-            id: 'description',
-            label: 'Description',
+            id: 'department_name',
+            label: 'Department',
             minWidth: 170,
         },
         {
-            id: 'region',
-            label: 'Region',
+            id: 'customer_name',
+            label: 'Customer',
             minWidth: 170,
         },
         {
-          id: 'town',
-          label: 'town',
+          id: 'last_check_in_time',
+          label: 'Last\u00a0Check\u00a0In',
           minWidth: 170,
       },
         {
-            id: 'customers',
-            label: 'Number\u00a0Of\u00a0Customers',
+            id: 'proximity_in_meters',
+            label: 'Proximity\u00a0(meters)',
             minWidth: 170,
             align: 'right',
         },
-        {
-            id: 'edit',
-            label: '',
-            minWidth: 170,
-            align: 'right',
-        }
     ];
 
-    const createRows = territory => ({
-        name: territory.name,
-        description: territory.description,
-        town: territory.town,        
-        region: territory.region,
-        customers: territory.customer_ids.length,
-        document_id: territory.document_id,
-        edit: '',
-    })
+    const createRows = report => {
+      const {agent_name, department_name, customer_name, last_check_in_time, proximity_in_meters} = report;
+      return({
+        agent_name,
+        department_name,
+        customer_name,
+        last_check_in_time: dayjs(last_check_in_time._seconds).format('h: mm a, MMMM DD YYYY'),
+        proximity_in_meters, 
+        report,
+      });
+    }
 
-  const rows = territories.length > 0 ? territories.map( territory => createRows(territory)) : [];
+    const rows = checkInSummaryReports.length > 0 ? checkInSummaryReports.map(report => createRows(report)) : [];
+    
+    
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -94,7 +91,20 @@ const Territories = ({ classes, territories }) => {
     setPage(0);
   };
 
+  //dialog
+  const [open, setOpen] = React.useState(false);
+  const [selectedReport, setSelectedReport] = React.useState({});
+  const handleOpen = report => {
+    setOpen(true);
+    setSelectedReport(report);
+  }
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
+    <>
+    <ExpandCheckInSummaryDialog open={open} handleClose={handleClose} report={selectedReport} />
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
@@ -114,29 +124,12 @@ const Territories = ({ classes, territories }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} className={classes.selectable} onClick={() => handleOpen(row.report)}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}> 
-                        {column.id === 'edit' ? (
-                            <>
-                            <Tooltip
-                            placement="top"
-                            title="Edit this territory"
-                            >
-                                <EditTerritoryDialog
-                                oldInfo={{
-                                  name: row.name,
-                                  description: row.description,
-                                  region: row.region,
-                                  town: row.town,
-                                }}
-                                id={row.document_id}
-                                />
-                            </Tooltip>
-                            </>
-                        ) : column.format && typeof value === 'number' ? column.format(value) : value}
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
                   })}
@@ -156,9 +149,10 @@ const Territories = ({ classes, territories }) => {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </Paper>
+    </>
   );
 }
 
 export default connect(
-    mapStateToProps,
-)(withStyles(styles)(React.memo(Territories)));
+  mapStateToProps
+)(withStyles(styles)(React.memo(CheckInSummaries)));

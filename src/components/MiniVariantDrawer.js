@@ -20,9 +20,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LandscapeIcon from '@material-ui/icons/Landscape';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import PersonIcon from '@material-ui/icons/Person';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import ReportIcon from '@material-ui/icons/Report';
+
 
 const drawerWidth = 240;
 
@@ -232,6 +236,54 @@ const MiniVariantDrawer = ({theme, open, handleDrawerOpen, handleDrawerClose}) =
             </ListItemIcon>
             <ListItemText
             primary="Customers"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Tasks"
+            >
+            <ListItem button component={Link} to="/tasks">
+            <ListItemIcon
+            >
+              <AssignmentLateIcon color={location.pathname === "/tasks" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Tasks"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Schedules"
+            >
+            <ListItem button component={Link} to="/schedules">
+            <ListItemIcon
+            >
+                <ScheduleIcon color={location.pathname === "/schedules" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Schedules"
+            >
+            </ListItemText>
+            </ListItem>
+            </Tooltip>
+            <Tooltip
+            disableHoverListener={open}
+            placement="right"
+            title="Visit Reports"
+            >
+            <ListItem button component={Link} to="/reports">
+            <ListItemIcon
+            >
+                <ReportIcon color={location.pathname === "/reports" ? "primary" : ""}/>
+            </ListItemIcon>
+            <ListItemText
+            primary="Reports"
             >
             </ListItemText>
             </ListItem>

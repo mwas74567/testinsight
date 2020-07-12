@@ -52,6 +52,7 @@ const AddTerritoryDialog = ({ addTerritory, clearErrors, classes, UI, territorie
         name: '',
         description: '',
         region: '',
+        town:'',
     });
 
     //when the territories increase, it means a request to the backend was successful
@@ -61,6 +62,7 @@ const AddTerritoryDialog = ({ addTerritory, clearErrors, classes, UI, territorie
             name: '',
             description: '',
             region: '',
+            town:'',
         });
         clearErrors();
     }, [territories]);
@@ -77,6 +79,7 @@ const AddTerritoryDialog = ({ addTerritory, clearErrors, classes, UI, territorie
                 name: '',
                 description: '',
                 region: '',
+                town:'',
             });
             clearErrors();
         }
@@ -155,6 +158,18 @@ const AddTerritoryDialog = ({ addTerritory, clearErrors, classes, UI, territorie
                 onChange={handleChange}
                 label="Region"
                 placeholder="Region"
+                error={UI.errors && !!UI.errors.description}
+                helperText={UI.errors && UI.errors.description}
+                className={classes.textField}
+                fullWidth
+                />
+                 <TextField
+                name="town"
+                type="text"
+                value={territoryInfo.town}
+                onChange={handleChange}
+                label="Town"
+                placeholder="Town"
                 error={UI.errors && !!UI.errors.description}
                 helperText={UI.errors && UI.errors.description}
                 className={classes.textField}
