@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
     UI: state.UI,
-    loading: state.data.loading
+    loading: state.territoriesData.loading
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -94,7 +94,7 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
             <DialogContent
             >
                 <form noValidate>
-                {/* <TextField
+                <TextField
                 name="name"
                 type="text"
                 value={territoryInfo.name}
@@ -105,7 +105,7 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
                 helperText={territoryInfo.name.trim() === '' && "Must not be empty"}
                 className={classes.textField}
                 fullWidth
-                /> */}
+                />
                 <TextField
                 name="description"
                 type="text"
@@ -127,18 +127,6 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
                 placeholder="Region"
                 error={territoryInfo.region.trim() === ''}
                 helperText={territoryInfo.region.trim() === '' && "Must not be empty"}
-                className={classes.textField}
-                fullWidth
-                />
-                 <TextField
-                name="town"
-                type="text"
-                value={territoryInfo.town}
-                onChange={handleChange}
-                label="Town"
-                placeholder="Town"
-                error={territoryInfo.town.trim() === ''}
-                helperText={territoryInfo.town.trim() === '' && "Must not be empty"}
                 className={classes.textField}
                 fullWidth
                 />

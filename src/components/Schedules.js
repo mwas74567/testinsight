@@ -18,7 +18,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-    schedules: state.data.schedules,
+    schedules: state.schedulesData.schedules,
 });
 
 const styles = theme => ({

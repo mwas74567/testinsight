@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    departments: state.data.departments,
+    departments: state.departmentsData.departments,
 });
 
 

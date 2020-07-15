@@ -36,9 +36,9 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
     UI: state.UI,
-    departments: state.data.departments,
-    loading: state.data.loading,
-})
+    departments: state.departmentsData.departments,
+    loading: state.departmentsData.loading,
+});
 
 const mapDispatchToProps = dispatch => ({
     addDepartment: departmentInfo => dispatch(addDepartment(departmentInfo)),

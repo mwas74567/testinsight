@@ -11,7 +11,7 @@ import { getDepartments } from '../redux';
 
 
 const mapStateToProps = state => ({
-    departments: state.data.departments,
+    departments: state.departmentsData.departments,
     loading: state.UI.loading,
 });
 

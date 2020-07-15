@@ -1,2 +1,11 @@
 export * from './user/actions';
-export * from './data/actions';
+// export * from './data/actions';
+export * from './departments/actions';
+export * from './supervisors/actions';
+export * from './agents/actions';
+export * from './territories/actions';
+export * from './customers/actions';
+export * from './product_categories/actions';
+export * from './products/actions';
+export * from './schedules/actions';
+export * from './tasks/actions';

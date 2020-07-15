@@ -19,7 +19,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-    supervisors: state.data.supervisors,
+    supervisors: state.supervisorsData.supervisors,
 })
 
 const styles = theme => ({

@@ -25,7 +25,7 @@ import products from './pages/products';
 import schedules from './pages/schedules';
 import tasks from './pages/tasks';
 import task from './pages/task';
-import reports from './pages/reports';
+// import reports from './pages/reports';
 
 //redux
 import { Provider } from 'react-redux';
@@ -90,7 +90,7 @@ const App = () => {
             <AuthRoute path="/schedules" exact component={schedules} />
             <AuthRoute path="/tasks" exact component={tasks} />            
             <AuthRoute path="/tasks/:taskId" exact component={task} />            
-            <AuthRoute path="/reports" exact component={reports} />
+            {/* <AuthRoute path="/reports" exact component={reports} /> */}
           </Switch>
           </div>
         </Router>

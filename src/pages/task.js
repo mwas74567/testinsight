@@ -5,7 +5,7 @@ import TaskData from '../components/task';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-    tasks: state.data.tasks,
+    tasks: state.tasksData.tasks,
 });
 
 const Task = props => {

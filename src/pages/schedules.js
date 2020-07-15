@@ -11,7 +11,7 @@ import { getSchedules } from '../redux';
 
 
 const mapStateToProps = state => ({
-    schedules: state.data.schedules,
+    schedules: state.schedulesData.schedules,
     loading: state.UI.loading,
 });
 

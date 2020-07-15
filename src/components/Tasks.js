@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    tasks: state.data.tasks,
+    tasks: state.tasksData.tasks,
 })
 
 const TasksSkeleton = ({ classes, tasks }) => {

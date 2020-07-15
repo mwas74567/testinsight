@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { getAgents } from '../redux';
 
 const mapStateToProps = state => ({
-    agents: state.data.agents,
+    agents: state.agentsData.agents,
     loading: state.UI.loading,
 });
 

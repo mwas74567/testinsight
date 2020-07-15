@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCountUp } from 'react-countup';
+import { Link } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -63,7 +64,7 @@ const styles = theme => ({
   },
   buttons: {
     textAlign: 'center',
-    margin: '20px 0px 0px 0px',
+    margin: '20px 5px 0px 0px',
     '& a': {
       margin: '20px 10px'
     }
@@ -74,7 +75,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    supervisor: state.data.supervisor,
+    supervisor: state.supervisorsData.supervisor,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -127,6 +128,13 @@ const Supervisor = ({ classes, supervisor, changeSupervisorStatus }) => {
                     </div>
                 </div>
                 <Divider />
+                <Button
+                    color="primary"
+                    variant="contained"
+                    component={Link}
+                    to="/supervisors"
+                    className={classes.buttons}
+                    >Back</Button>
                 {
                     status === "active" ?
                     <Button

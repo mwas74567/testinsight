@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapStateToProps = state => ({
-  product_categories: state.data.product_categories,
-  products: state.data.products,
+  product_categories: state.productCategoriesData.product_categories,
+  products: state.productsData.products,
 });
 
 const mapDispatchToProps = dispatch => ({

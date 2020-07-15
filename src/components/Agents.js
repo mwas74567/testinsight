@@ -19,7 +19,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-    agents: state.data.agents
+    agents: state.agentsData.agents
 })
 
 const styles = theme => ({

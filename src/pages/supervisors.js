@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { getSupervisors, } from '../redux';
 
 const mapStateToProps = state => ({
-    supervisors: state.data.supervisors,
+    supervisors: state.supervisorsData.supervisors,
     loading: state.UI.loading,
 });
 

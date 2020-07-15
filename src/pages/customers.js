@@ -11,7 +11,7 @@ import { getCustomers } from '../redux';
 
 
 const mapStateToProps = state => ({
-    customers: state.data.customers,
+    customers: state.customersData.customers,
     loading: state.UI.loading,
 });
 

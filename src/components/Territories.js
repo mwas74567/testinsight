@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    territories: state.data.territories,
+    territories: state.territoriesData.territories,
 })
 
 const Territories = ({ classes, territories }) => {

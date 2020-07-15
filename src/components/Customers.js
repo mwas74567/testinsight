@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-    customers: state.data.customers,
+    customers: state.customersData.customers,
 });
 const Customers = ({ classes, customers }) => {
 

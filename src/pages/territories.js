@@ -11,7 +11,7 @@ import { getTerritories } from '../redux';
 
 
 const mapStateToProps = state => ({
-    territories: state.data.territories,
+    territories: state.territoriesData.territories,
     loading: state.UI.loading,
 });
 

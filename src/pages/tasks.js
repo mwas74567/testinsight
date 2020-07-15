@@ -11,7 +11,7 @@ import { getTasks } from '../redux';
 
 
 const mapStateToProps = state => ({
-    tasks: state.data.territories,
+    tasks: state.tasksData.tasks,
     loading: state.UI.loading,
 });
 

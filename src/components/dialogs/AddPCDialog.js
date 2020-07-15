@@ -40,9 +40,9 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
     UI: state.UI,
-    product_categories: state.data.product_categories,
-    loading: state.data.loading,
-})
+    product_categories: state.productCategoriesData.product_categories,
+    loading: state.productCategoriesData.loading,
+});
 
 const mapDispatchToProps = dispatch => ({
     addProductCategory: (categoryInfo, formData) => dispatch(addProductCategory(categoryInfo, formData)),

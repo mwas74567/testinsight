@@ -15,7 +15,7 @@ const styles = {
 
 const mapStateToProps = state => ({
     loading: state.UI.loading, 
-    supervisors: state.data.supervisors,
+    supervisors: state.supervisorsData.supervisors,
 });
 
 const mapDispatchToProps = dispatch => ({
