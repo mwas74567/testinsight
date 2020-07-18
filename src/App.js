@@ -21,6 +21,7 @@ import supervisor from './pages/supervisor';
 import agent from './pages/agent';
 import territories from './pages/territories';
 import customers from './pages/customers';
+import customer from './pages/customer';
 import products from './pages/products';
 import schedules from './pages/schedules';
 import tasks from './pages/tasks';
@@ -86,6 +87,7 @@ const App = () => {
             <AuthRoute path="/agents/:agentId" exact component={agent} />
             <AuthRoute path="/territories" exact component={territories} />
             <AuthRoute path="/customers" exact component={customers} />
+            <AuthRoute path="/customers/:customerId" exact component={customer} />
             <AuthRoute path="/products" exact component={products} />
             <AuthRoute path="/schedules" exact component={schedules} />
             <AuthRoute path="/tasks" exact component={tasks} />            

@@ -1,4 +1,4 @@
-import {SET_AGENT, SET_AGENTS, START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS} from './types'
+import {SET_AGENT, SET_AGENTS, START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS, ADD_AGENT} from './types'
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -23,6 +23,11 @@ const agentsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 agents: action.payload,
+            }
+        case ADD_AGENT:
+            return {
+                ...state,
+                agents: [action.payload, ...state.agents],
             }
         case CHANGE_AGENT_STATUS:
             state.agents.forEach((agent, agentIndex) => {

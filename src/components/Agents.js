@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -17,10 +17,15 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 //Redux
 import { connect } from 'react-redux';
+import { setAgent } from '../redux';
 
 const mapStateToProps = state => ({
     agents: state.agentsData.agents
-})
+});
+
+const mapDispatchToProps = dispatch => ({
+    setAgent: agent => dispatch(setAgent(agent)),
+});
 
 const styles = theme => ({
     wrapper: {
@@ -54,7 +59,13 @@ const styles = theme => ({
     }
 })
 
-const Agents = ({ classes, agents }) => {
+const Agents = ({ classes, agents, setAgent }) => {
+
+    const history = useHistory();
+    const changeUrl = agent => {
+        setAgent(agent);
+        history.push(`/agents/${agent.document_id}`)
+    }
 
     const markup = agents.map((agent, agentIndex) => {
         return (
@@ -63,7 +74,7 @@ const Agents = ({ classes, agents }) => {
                 <CardContent className={classes.content}>
                     <div className={classes.see}><span>
                         <Tooltip title="See Agent">
-                            <IconButton component={Link} to={`/agents/${agent.document_id}`}>
+                            <IconButton onClick={() => changeUrl(agent)}>
                             <NavigateNextIcon color="error"/>
                             </IconButton>
                         </Tooltip>
@@ -84,4 +95,5 @@ const Agents = ({ classes, agents }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(Agents)));

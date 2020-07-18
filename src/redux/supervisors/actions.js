@@ -1,5 +1,5 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import {SET_SUPERVISOR, SET_SUPERVISORS, CHANGE_SUPERVISOR_STATUS, START_LOADING_SUPERVISORS, STOP_LOADING_SUPERVISORS} from './types';
+import {SET_SUPERVISOR, SET_SUPERVISORS, CHANGE_SUPERVISOR_STATUS, START_LOADING_SUPERVISORS, STOP_LOADING_SUPERVISORS, SET_FILTERED_SUPERVISORS} from './types';
 import axios from 'axios';
 
 export const setSupervisor = supervisor => ({
@@ -49,6 +49,21 @@ export const changeSupervisorStatus = (supervisorId, statusInfo) => (async dispa
                 supervisorId,
                 status: statusInfo.status,
             }
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+
+export const getSupervisorsByDepartment = departmentId => (async dispatch => {
+    try {
+        const res = await axios.get(`/app/getSupervisorsByDepartment/${departmentId}`);
+        dispatch({
+            type: SET_FILTERED_SUPERVISORS,
+            payload: res.data.info,
         });
     } catch(error) {
         dispatch({

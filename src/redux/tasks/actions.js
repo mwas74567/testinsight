@@ -1,5 +1,5 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import {START_LOADING_TASKS, STOP_LOADING_TASKS, SET_TASKS} from './types';
+import {START_LOADING_TASKS, STOP_LOADING_TASKS, SET_TASKS, SET_TASK} from './types';
 import axios from 'axios';
 
 export const getTasks = () => (async dispatch => {
@@ -18,4 +18,11 @@ export const getTasks = () => (async dispatch => {
             payload: error.response.data,
         });
     }
+});
+
+export const setTask = task => (dispatch => {
+    dispatch({
+        type: SET_TASK,
+        payload: task,
+    });
 });

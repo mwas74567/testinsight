@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,7 +13,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 
 //redux
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import {setCustomer} from '../redux';
 
 const styles = theme => ({
     root: {
@@ -25,14 +27,22 @@ const styles = theme => ({
       width: 70,
       height: 70,
       objectFit: 'cover',
+    },
+    selectable: {
+      cursor: 'pointer',
     }
 });
 
 const mapStateToProps = state => ({
     customers: state.customersData.customers,
 });
-const Customers = ({ classes, customers }) => {
 
+const mapDispatchToProps = dispatch => ({
+  setCustomer: customer => dispatch(setCustomer(customer)),
+});
+const Customers = ({ classes, customers, setCustomer }) => {
+
+  const history = useHistory();
     const columns = [
         {
             id: 'image_url',
@@ -80,6 +90,7 @@ const Customers = ({ classes, customers }) => {
         town: customer.town,
         potential: customer.potential,
         document_id: customer.document_id,
+        customer,
     });
 
     const rows = customers.length > 0 ? customers.map(customer => createRows(customer)) : [];
@@ -97,6 +108,12 @@ const Customers = ({ classes, customers }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const changeUrl = customer => {
+    setCustomer(customer);
+    history.push(`/customers/${customer.document_id}`);
+  }
+    
 
   return (
     <Paper className={classes.root}>
@@ -118,7 +135,7 @@ const Customers = ({ classes, customers }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} className={classes.selectable} onClick={() => changeUrl(row.customer)}>
                   {columns.map((column, columnIndex) => {
                     if(columnIndex === 0) {
                       return (
@@ -155,4 +172,5 @@ const Customers = ({ classes, customers }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(Customers)));

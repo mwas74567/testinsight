@@ -1,5 +1,5 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import {START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS, SET_AGENT, SET_AGENTS} from './types';
+import {START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS, SET_AGENT, SET_AGENTS, ADD_AGENT} from './types';
 import axios from 'axios';
 
 export const setAgent = agent => ({
@@ -40,5 +40,23 @@ export const changeAgentStatus = (agentId, statusInfo) => (async dispatch => {
             type: SET_ERRORS,
             payload: error.response.data,
         });
+    }
+});
+
+export const addAgent = agentInfo => (async dispatch => {
+    dispatch({type: START_LOADING_AGENTS});
+    try{
+        const res = await axios.post('/clientAdmin/createAgent', agentInfo);
+        dispatch({
+            type: ADD_AGENT,
+            payload: res.data,
+        });
+        dispatch({ type: STOP_LOADING_AGENTS });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_AGENTS });
     }
 });

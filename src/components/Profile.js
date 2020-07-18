@@ -156,7 +156,7 @@ const Profile = ({ classes, credentials, uploadImage }) => {
                         type="number"
                     />
                     <hr/> 
-                    <DirectionsWalk color="primary" /><span>{'  '}Minimum Check-ins Radius <strong>{credentials.minimum_check_ins_radius}</strong></span>
+                    <DirectionsWalk color="primary" /><span>{'  '}Minimum Check-ins Radius <strong>{credentials.minimum_check_ins_radius} meters</strong></span>
                     <EditEntity
                         title="Update Check-ins Radius"
                         label="Check-ins"
@@ -164,7 +164,7 @@ const Profile = ({ classes, credentials, uploadImage }) => {
                         type="number"
                     />
                     <hr/>
-                    <Timeline color="primary" /><span>{'  '}Mininum Check-ins Interval <strong>{credentials.minimum_check_ins_interval}</strong></span>
+                    <Timeline color="primary" /><span>{'  '}Mininum Check-ins Interval <strong>{credentials.minimum_check_ins_interval/60} minutes</strong></span>
                     <EditEntity
                         title="Update Check-ins Interval"
                         label="Interval"

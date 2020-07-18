@@ -1,4 +1,4 @@
-import {START_LOADING_CUSTOMERS, STOP_LOADING_CUSTOMERS, SET_CUSTOMERS, ADD_CUSTOMER, CHANGE_CUSTOMER} from './types';
+import {START_LOADING_CUSTOMERS, STOP_LOADING_CUSTOMERS, SET_CUSTOMERS, ADD_CUSTOMER, CHANGE_CUSTOMER, SET_CUSTOMER} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -23,6 +23,11 @@ const customersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 customers: action.payload,
+            }
+        case SET_CUSTOMER:
+            return {
+                ...state,
+                customer: action.payload,
             }
         case CHANGE_CUSTOMER:
             state.customers.forEach((customer, customerId) => {

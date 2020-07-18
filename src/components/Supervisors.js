@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -17,10 +17,15 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 //Redux
 import { connect } from 'react-redux';
+import {setSupervisor} from '../redux';
 
 const mapStateToProps = state => ({
     supervisors: state.supervisorsData.supervisors,
-})
+});
+
+const mapDispatchToProps = dispatch => ({
+    setSupervisor: supervisor => dispatch(setSupervisor(supervisor)),
+});
 
 const styles = theme => ({
     wrapper: {
@@ -54,7 +59,13 @@ const styles = theme => ({
     }
 })
 
-const Supervisors = ({ classes, supervisors }) => {
+const Supervisors = ({ classes, supervisors, setSupervisor }) => {
+
+    const history = useHistory();
+    const changeUrl = supervisor => {
+        setSupervisor(supervisor);
+        history.push(`/supervisors/${supervisor.document_id}`);
+    }
 
     const markup = supervisors.map((supervisor, supervisorIndex) => {
         return (
@@ -63,7 +74,7 @@ const Supervisors = ({ classes, supervisors }) => {
                 <CardContent className={classes.content}>
                     <div className={classes.see}><span>
                         <Tooltip title="See Supervisor" placement="top">
-                            <IconButton component={Link} to={`/supervisors/${supervisor.document_id}`}>
+                            <IconButton onClick={() => changeUrl(supervisor)}>
                             <NavigateNextIcon color="error"/>
                             </IconButton>
                         </Tooltip>
@@ -84,4 +95,5 @@ const Supervisors = ({ classes, supervisors }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(Supervisors)));

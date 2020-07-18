@@ -1,4 +1,4 @@
-import {START_LOADING_TASKS, STOP_LOADING_TASKS, SET_TASKS} from './types';
+import {START_LOADING_TASKS, STOP_LOADING_TASKS, SET_TASKS, SET_TASK} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -23,6 +23,11 @@ const tasksReducer = (state = initialState, action) => {
             return {
                 ...state,
                 tasks: action.payload,
+            }
+        case SET_TASK:
+            return {
+                ...state,
+                task: action.payload,
             }
         case SET_UNAUTHENTICATED:
             return initialState;

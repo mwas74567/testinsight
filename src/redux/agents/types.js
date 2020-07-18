@@ -1,4 +1,5 @@
 export const SET_AGENT = 'SET_AGENT';
+export const ADD_AGENT = 'ADD_AGENT';
 export const CHANGE_AGENT_STATUS = 'CHANGE_AGENT_STATUS';
 export const SET_AGENTS = 'SET_AGENTS';
 export const START_LOADING_AGENTS = 'START_LOADING_AGENTS';

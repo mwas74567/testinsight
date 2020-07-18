@@ -1,5 +1,7 @@
 import React from 'react';
+import AddAgentDialog from './dialogs/AddAgentDialog';
 
+//MUI
 import ProfileShortcut from './ProfileShortcut';
 import SigninDialog from './dialogs/SigninDialog';
 import UserMenu from './UserMenu';
@@ -106,6 +108,12 @@ const Navbar = props => {
         <div className={classes.profileShortcut}>
             <ProfileShortcut />
         </div>
+        {
+            location.pathname === "/agents" &&
+            <div className={classes.functionContainer}>
+                <AddAgentDialog/>
+            </div>
+        }
         {
             location.pathname === "/departments" &&
             <div className={classes.functionContainer}>
