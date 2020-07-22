@@ -76,11 +76,16 @@ const EditDepartmentDialog = ({  editDepartment, classes, UI, oldInfo, id, loadi
     }
     return (
         <>    
-        <Tooltip title="Edit Department" placement="top">
+        {/* <Tooltip title="Edit Department" placement="top">
             <IconButton onClick={handleOpen}>
                 <EditIcon color="primary"/>
             </IconButton>
-        </Tooltip>    
+        </Tooltip>  */}
+        <Button
+        onClick={handleOpen}
+        variant="contained"
+        color="primary"
+        >Edit</Button>   
         <Dialog
         fullWidth
         maxWidth="sm"

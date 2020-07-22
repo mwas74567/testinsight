@@ -1,4 +1,4 @@
-import {START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY} from './types';
+import {START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY, SET_TERRITORY} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -24,12 +24,23 @@ const territoriesReducer = (state = initialState, action) => {
                 ...state,
                 territories: action.payload,
             }
-        case CHANGE_TERRITORY:
-            state.territories.forEach((territory, territoryId) => {
-                if(territory.document_id === action.payload.document_id) territory = action.payload;
-            });
+        case SET_TERRITORY:
             return {
                 ...state,
+                territory: action.payload,
+            }
+        case CHANGE_TERRITORY:
+            state.territory = {
+                ...state.territory,
+                ...action.payload,
+            }
+            const newTerritories = state.territories;
+            state.territories.forEach((territory, index) => {
+                if(territory.document_id === state.territory.document_id) newTerritories[index] = state.territory;
+            })
+            return {
+                ...state,
+                territories: newTerritories,
             }
         case ADD_TERRITORY:
             return {

@@ -15,15 +15,18 @@ import landing from './pages/landing';
 import home from './pages/home';
 import user from './pages/user';
 import departments from './pages/departments';
+import department from './pages/department';
 import supervisors from './pages/supervisors';
 import agents from './pages/agents';
 import supervisor from './pages/supervisor';
 import agent from './pages/agent';
 import territories from './pages/territories';
+import territory from './pages/territory';
 import customers from './pages/customers';
 import customer from './pages/customer';
 import products from './pages/products';
 import schedules from './pages/schedules';
+import schedule from './pages/schedule';
 import tasks from './pages/tasks';
 import task from './pages/task';
 // import reports from './pages/reports';
@@ -81,15 +84,18 @@ const App = () => {
             <AuthRoute path="/home" exact component={home} />
             <AuthRoute path="/user" exact component={user} />
             <AuthRoute path="/departments" exact component={departments} />
+            <AuthRoute path="/departments/:departmentId" exact component={department} />
             <AuthRoute path="/supervisors" exact component={supervisors} />
             <AuthRoute path="/agents" exact component={agents} />
             <AuthRoute path="/supervisors/:supervisorId" exact component={supervisor} />
             <AuthRoute path="/agents/:agentId" exact component={agent} />
             <AuthRoute path="/territories" exact component={territories} />
+            <AuthRoute path="/territories/:territoryId" exact component={territory} />
             <AuthRoute path="/customers" exact component={customers} />
             <AuthRoute path="/customers/:customerId" exact component={customer} />
             <AuthRoute path="/products" exact component={products} />
             <AuthRoute path="/schedules" exact component={schedules} />
+            <AuthRoute path="/schedules/:scheduleId" exact component={schedule} />
             <AuthRoute path="/tasks" exact component={tasks} />            
             <AuthRoute path="/tasks/:taskId" exact component={task} />            
             {/* <AuthRoute path="/reports" exact component={reports} /> */}

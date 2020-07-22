@@ -34,11 +34,6 @@ const TasksSkeleton = ({ classes }) => {
             minWidth: 170,
         },
         {
-            id: 'department_name',
-            label: 'Department\u00a0Name',
-            minWidth: 170,
-        },
-        {
             id: 'status',
             label: 'Status',
             minWidth: 170,

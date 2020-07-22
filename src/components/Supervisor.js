@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
 //redux
 import { connect } from 'react-redux';
@@ -119,11 +120,13 @@ const Supervisor = ({ classes, supervisor, changeSupervisorStatus }) => {
                     >{supervisor.name}
                     </Typography>
                     <hr/>
-                    <MailIcon color="primary" /> <span>{supervisor.email}</span>
+                    <MailIcon color="primary" /> <span><strong>{supervisor.email}</strong></span>
                     <hr/>
-                    <PhoneIcon color="primary" /> <span>{supervisor.phone_number}</span>
+                    <PhoneIcon color="primary" /> <span><strong>{supervisor.phone_number}</strong></span>
                     <hr/>
-                    <EqualizerIcon color="primary"/> <span>Agents Registered {supervisor.number_of_created_agents}</span>
+                    <EqualizerIcon color="primary"/> <span>Agents Registered <strong>{supervisor.number_of_created_agents}</strong></span>
+                    <hr/>
+                    <AccountBalanceIcon color="primary"/> <span>Department <strong>{supervisor.department_name}</strong></span>
                     <hr/>
                     </div>
                 </div>

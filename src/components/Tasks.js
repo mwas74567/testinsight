@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,6 +19,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //Redux
 import { connect } from 'react-redux';
+import { setTask } from '../redux';
 
 const styles = theme => ({
     root: {
@@ -27,19 +28,22 @@ const styles = theme => ({
     container: {
     maxHeight: 440,
     },
+    selectable: {
+      cursor: 'pointer',
+    }
 });
 
 const mapStateToProps = state => ({
     tasks: state.tasksData.tasks,
-})
+});
 
-const TasksSkeleton = ({ classes, tasks }) => {
+const mapDispatchToProps = dispatch => ({
+  setTask: task => dispatch(setTask(task)),
+});
+
+const TasksSkeleton = ({ classes, tasks, setTask }) => {
+
   const history = useHistory();
-
-   const changeUrl = (taskId) => {
-    history.push(`/tasks/${taskId}`);
-   }
-
 
     const columns = [
         {
@@ -50,11 +54,6 @@ const TasksSkeleton = ({ classes, tasks }) => {
         {
             id: 'description',
             label: 'Description',
-            minWidth: 170,
-        },
-        {
-            id: 'department_name',
-            label: 'Department\u00a0Name',
             minWidth: 170,
         },
         {
@@ -78,7 +77,8 @@ const TasksSkeleton = ({ classes, tasks }) => {
             department_name,
             status,
             number_of_actions, 
-            document_id
+            document_id, 
+            task,
         }
     }
 
@@ -95,6 +95,11 @@ const TasksSkeleton = ({ classes, tasks }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const changeUrl = task => {
+    setTask(task);
+    history.push(`/tasks/${task.document_id}`);
+  }
 
   return (
     <Paper className={classes.root}>
@@ -116,7 +121,7 @@ const TasksSkeleton = ({ classes, tasks }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} onClick={() => changeUrl(row.document_id)} className={classes.selectable}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} onClick={() => changeUrl(row.task)} className={classes.selectable}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
@@ -146,4 +151,5 @@ const TasksSkeleton = ({ classes, tasks }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(TasksSkeleton)));

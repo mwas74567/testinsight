@@ -181,6 +181,24 @@ const Navbar = props => {
                 <Typography variant="h5">Customers</Typography>
             </div>
         }
+        {
+            location.pathname.startsWith("/tasks") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Tasks</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/schedules") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Schedules</Typography>
+            </div>
+        }
+        {
+            location.pathname.startsWith("/reports") &&
+            <div className={classes.titleContainer}>
+                <Typography variant="h5">Reports</Typography>
+            </div>
+        }
         <div className={classes.actionContainer}>
             <UserMenu />   
         </div>

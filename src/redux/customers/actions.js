@@ -50,8 +50,11 @@ export const editCustomer = (newInfo, customer_id) => (async dispatch => {
 
     try {
         await axios.put(`/app/resource/customers/${customer_id}`, newInfo);
+        dispatch({
+            type: CHANGE_CUSTOMER,
+            payload: newInfo,
+        });
         dispatch({type: STOP_LOADING});
-        dispatch(getCustomers());
     } catch(error) {
         console.error(error);
         dispatch({

@@ -62,6 +62,7 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
         email: '',
         phone_number: '',
         department_id: '',
+        gender: ''
     });
 
     //when the supervisors increase, it means a request to the backend was successful
@@ -72,6 +73,7 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
             email: '',
             phone_number: '',
             department_id: departments.length > 0 ? departments[0].document_id : '',
+            gender: ''
         });
         clearErrors();
     }, [supervisors]);
@@ -89,6 +91,7 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
                 email: '',
                 phone_number: '',
                 department_id: departments.length > 0 ? departments[0].document_id : '',
+                gender: '',
             });
             clearErrors();
         }
@@ -195,6 +198,26 @@ const AddSupervisorDialog = ({ addSupervisor, clearErrors, classes, UI, supervis
                             </MenuItem>
                         ))
                     )
+                }
+                </TextField>
+                <TextField
+                name="gender"
+                id="selected-gender"
+                select
+                label="Gender"
+                value={supervisorInfo.gender}
+                onChange={handleChange}
+                error={UI.errors && !!UI.errors.gender}
+                helperText={UI.errors && UI.errors.gender}
+                className={classes.textField}
+                fullWidth
+                >
+                {  
+                    ['Male', 'Female', 'Other'].map(gender => (
+                        <MenuItem key={gender} value={gender}>
+                        {gender}
+                        </MenuItem>
+                    )) 
                 }
                 </TextField>
                 {

@@ -1,19 +1,22 @@
 import React from 'react';
-import CustomerDetails from '../components/CustomerDetails';
+import TerritoryDetails from '../components/TerritoryDetails';
 
 //MUI
 import Grid from '@material-ui/core/Grid';
 
-const Customer = () => {
+
+
+const Territory = () => {
+
     return (
         <>
             <Grid container>
                 <Grid item sm={12}>
-                    <CustomerDetails />
+                    <TerritoryDetails />
                 </Grid>
             </Grid>
         </>
     );
 }
 
-export default React.memo(Customer);
+export default React.memo(Territory);

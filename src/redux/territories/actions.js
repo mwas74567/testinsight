@@ -1,6 +1,13 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import { START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY } from './types';
+import { START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY, SET_TERRITORY } from './types';
 import axios from 'axios';
+
+export const setTerritory = territory => (dispatch => {
+    dispatch({
+        type: SET_TERRITORY,
+        payload: territory,
+    });
+});
 
 export const getTerritories = () => (async dispatch => {
     dispatch({ type: START_LOADING });
@@ -42,7 +49,11 @@ export const editTerritory = (newInfo, id) => (async dispatch => {
     dispatch({type: START_LOADING_TERRITORIES});
     try{
         await axios.put(`/app/resource/territories/${id}`, newInfo);
-        dispatch(getTerritories());
+        
+        dispatch({
+            type: CHANGE_TERRITORY,
+            payload: newInfo,
+        })
         dispatch({ type: STOP_LOADING_TERRITORIES });
     } catch(error) {
         dispatch({

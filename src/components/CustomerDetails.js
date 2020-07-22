@@ -82,10 +82,6 @@ const CustomerDetails = ({classes, customer, editCustomer, loading}) => {
         return editCustomer({status: 'active'}, document_id);
     }
 
-    const approveOrUnapprove = () => {
-        if(approval_status === 'approved') return editCustomer({approval_status: 'unapproved'}, document_id);
-        return editCustomer({approval_status: 'approved'}, document_id);
-    }
     return (
         <Card className={classes.detailsContainer}>
                     <CardContent className={classes.infoContainer}>
@@ -123,7 +119,7 @@ const CustomerDetails = ({classes, customer, editCustomer, loading}) => {
                         to="/customers"
                         >Back</Button>
                         {
-                            g && l && status === 'approved' &&
+                            g && l && approval_status === 'approved' &&
                             (
                                 <Button
                                 variant="contained"

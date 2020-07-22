@@ -22,6 +22,9 @@ const styles = theme => ({
     },
     container: {
     maxHeight: 440,
+    [theme.breakpoints.up("sm")]: {
+      minHeight: 600,
+    }
     },
     tableImage: {
       width: 70,
@@ -30,7 +33,7 @@ const styles = theme => ({
     },
     selectable: {
       cursor: 'pointer',
-    }
+    },
 });
 
 const mapStateToProps = state => ({
@@ -43,11 +46,12 @@ const mapDispatchToProps = dispatch => ({
 const Customers = ({ classes, customers, setCustomer }) => {
 
   const history = useHistory();
+
     const columns = [
         {
             id: 'image_url',
             label: 'Photo',
-            minWidth: 170,
+            minWidth: 100,
         },
         {
             id: 'name',
@@ -64,21 +68,6 @@ const Customers = ({ classes, customers, setCustomer }) => {
           label: 'Phone',
           minWidth: 170,
         },
-        {
-          id: 'county',
-          label: 'County',
-          minWidth: 170,
-        },
-        {
-          id: 'town',
-          label: 'Town',
-          minWidth: 170,
-        },
-        {
-          id: 'potential',
-          label: 'Class',
-          minWidth: 170,
-        },
     ];
 
     const createRows = (customer) => ({
@@ -86,9 +75,6 @@ const Customers = ({ classes, customers, setCustomer }) => {
         name: customer.name,
         email: customer.email,
         phone_number: customer.phone_number,
-        county: customer.county,
-        town: customer.town,
-        potential: customer.potential,
         document_id: customer.document_id,
         customer,
     });
@@ -113,7 +99,6 @@ const Customers = ({ classes, customers, setCustomer }) => {
     setCustomer(customer);
     history.push(`/customers/${customer.document_id}`);
   }
-    
 
   return (
     <Paper className={classes.root}>

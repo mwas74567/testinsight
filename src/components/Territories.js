@@ -1,5 +1,6 @@
 import React from 'react';
 import EditTerritoryDialog from './dialogs/EditTerritoryDialog';
+import { useHistory } from 'react-router-dom';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,6 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //redux
 import { connect } from 'react-redux';
+import { setTerritory } from '../redux';
 
 const styles = theme => ({
     root: {
@@ -27,13 +29,22 @@ const styles = theme => ({
     container: {
     maxHeight: 440,
     },
+    selectable: {
+      cursor: 'pointer',
+    }
 });
 
 const mapStateToProps = state => ({
     territories: state.territoriesData.territories,
-})
+});
 
-const Territories = ({ classes, territories }) => {
+const mapDispatchToProps = dispatch => ({
+  setTerritory: territory => dispatch(setTerritory(territory)),
+});
+
+const Territories = ({ classes, territories, setTerritory }) => {
+
+  const history = useHistory();
 
     const columns = [
         {
@@ -52,33 +63,21 @@ const Territories = ({ classes, territories }) => {
             minWidth: 170,
         },
         {
-          id: 'town',
-          label: 'town',
-          minWidth: 170,
-      },
-        {
             id: 'customers',
             label: 'Number\u00a0Of\u00a0Customers',
             minWidth: 170,
             align: 'right',
         },
-        {
-            id: 'edit',
-            label: '',
-            minWidth: 170,
-            align: 'right',
-        }
     ];
 
     const createRows = territory => ({
         name: territory.name,
         description: territory.description,
-        town: territory.town,        
         region: territory.region,
         customers: territory.customer_ids.length,
         document_id: territory.document_id,
-        edit: '',
-    })
+        territory,
+    });
 
   const rows = territories.length > 0 ? territories.map( territory => createRows(territory)) : [];
 
@@ -93,6 +92,11 @@ const Territories = ({ classes, territories }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const changeUrl = territory => {
+    setTerritory(territory);
+    history.push(`/territories/${territory.document_id}`);
+  }
 
   return (
     <Paper className={classes.root}>
@@ -114,11 +118,11 @@ const Territories = ({ classes, territories }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} className={classes.selectable} onClick={() => changeUrl(row.territory)}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}> 
+                      <TableCell key={column.id} align={column.align}>
                         {column.id === 'edit' ? (
                             <>
                             <Tooltip
@@ -130,7 +134,6 @@ const Territories = ({ classes, territories }) => {
                                   name: row.name,
                                   description: row.description,
                                   region: row.region,
-                                  town: row.town,
                                 }}
                                 id={row.document_id}
                                 />
@@ -161,4 +164,5 @@ const Territories = ({ classes, territories }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(Territories)));

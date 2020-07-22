@@ -1,4 +1,4 @@
-import {START_LOADING_DEPARTMENTS, STOP_LOADING_DEPARTMENTS, SET_DEPARTMENTS, CHANGE_DEPARTMENTS} from './types'
+import {START_LOADING_DEPARTMENTS, STOP_LOADING_DEPARTMENTS, SET_DEPARTMENTS, CHANGE_DEPARTMENTS, SET_DEPARTMENT} from './types'
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -24,12 +24,23 @@ const departmentsReducer = (state = initialState, action) => {
                 ...state,
                 departments: action.payload,
             }
+        case SET_DEPARTMENT:
+            return {
+                ...state,
+                department: action.payload,
+            }
         case CHANGE_DEPARTMENTS:
-                state.departments.forEach((department, departmentId) => {
-                    if(department.document_id === action.payload.document_id) department = action.payload;
+                state.department = {
+                    ...state.department,
+                    ...action.payload,
+                }
+                const newDepartments = state.departments;
+                state.departments.forEach((department, index) => {
+                    if(department.document_id === state.department.document_id) newDepartments[index] = state.department;
                 });
                 return {
                     ...state,
+                    departments: newDepartments,
                 }
         case SET_UNAUTHENTICATED:
             return initialState;

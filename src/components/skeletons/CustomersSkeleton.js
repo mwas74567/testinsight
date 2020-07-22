@@ -49,21 +49,6 @@ const CustomerSkeleton = ({ classes }) => {
           label: 'Phone',
           minWidth: 170,
         },
-        {
-          id: 'county',
-          label: 'County',
-          minWidth: 170,
-        },
-        {
-          id: 'town',
-          label: 'Town',
-          minWidth: 170,
-        },
-        {
-          id: 'potential',
-          label: 'Class',
-          minWidth: 170,
-        },
     ];
 
     const rows = [
@@ -72,45 +57,30 @@ const CustomerSkeleton = ({ classes }) => {
             name: 'First Customer',
             email: 'firstcustomer@email.com',
             phone_number: '0712345678',
-            county: 'Nairobi',
-            town: 'Nairobi',
-            potential: 'A',
         },
         {
           image_url: image,
           name: 'Second Customer',
           email: 'secondcustomer@email.com',
           phone_number: '0712345678',
-          county: 'Nairobi',
-          town: 'Nairobi',
-          potential: 'A',
         },
         {
           image_url: image,
           name: 'Third Customer',
           email: 'thirdcustomer@email.com',
           phone_number: '0712345678',
-          county: 'Nairobi',
-          town: 'Nairobi',
-          potential: 'A',
         },
         {
           image_url: image,
           name: 'Fourth Customer',
           email: 'fourthcustomer@email.com',
           phone_number: '0712345678',
-          county: 'Nairobi',
-          town: 'Nairobi',
-          potential: 'A',
         },
         {
           image_url: image,
           name: 'Fifth Customer',
           email: 'fifthcustomer@email.com',
           phone_number: '0712345678',
-          county: 'Nairobi',
-          town: 'Nairobi',
-          potential: 'A',
         },
     ];
     

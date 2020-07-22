@@ -16,9 +16,14 @@ import TablePagination from '@material-ui/core/TablePagination';
 
 //redux
 import { connect } from 'react-redux';
+import { setSchedule } from '../redux';
 
 const mapStateToProps = state => ({
     schedules: state.schedulesData.schedules,
+});
+
+const mapDispatchToProps = dispatch => ({
+  setSchedule: schedule => dispatch(setSchedule(schedule)),
 });
 
 const styles = theme => ({
@@ -33,11 +38,12 @@ const styles = theme => ({
     },
 });
 
-const Schedules = ({ classes, schedules }) => {
+const Schedules = ({ classes, schedules, setSchedule }) => {
   const history = useHistory();
 
-   const changeUrl = (scheduleId) => {
-    history.push(`/schedules/${scheduleId}`);
+   const changeUrl = (schedule) => {
+     setSchedule(schedule);
+    history.push(`/schedules/${schedule.document_id}`);
    }
 
     const columns = [
@@ -118,7 +124,7 @@ const Schedules = ({ classes, schedules }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} onClick={() => changeUrl(row.schedule.document_id)} className={classes.selectable}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name} onClick={() => changeUrl( row.schedule)} className={classes.selectable}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
@@ -148,4 +154,5 @@ const Schedules = ({ classes, schedules }) => {
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(withStyles(styles)(React.memo(Schedules)));

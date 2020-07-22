@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -11,11 +11,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
+import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography';
+
+//Icons
+import EditIcon from '@material-ui/icons/Edit';
 
 //Redux
 import { connect } from 'react-redux';
-import { setDepartment } from '../redux';
 
 const styles = theme => ({
     root: {
@@ -24,32 +28,19 @@ const styles = theme => ({
     container: {
     maxHeight: 440,
     },
-    selectable: {
-      cursor: 'pointer',
-    },
 });
 
 const mapStateToProps = state => ({
-    departments: state.departmentsData.departments,
+    tasks: state.schedulesData.schedule.tasks ? state.schedulesData.schedule.tasks : [],
+    schedule: state.schedulesData.schedule,
 });
 
-const mapDispatchToProps = dispatch => ({
-  setDepartment: department => dispatch(setDepartment(department)),
-});
+const TasksInSchedules = ({ classes, tasks, schedule }) => {
 
-
-const Departments = ({ classes, departments, setDepartment }) => {
-
-  const history = useHistory();
     const columns = [
         {
-            id: 'number',
-            label: 'No',
-            minWidth: 170,
-        },
-        {
-            id: 'name',
-            label: 'Department\u00a0Name',
+            id: 'task_name',
+            label: 'Name',
             minWidth: 170,
         },
         {
@@ -57,23 +48,34 @@ const Departments = ({ classes, departments, setDepartment }) => {
             label: 'Description',
             minWidth: 170,
         },
-        
+        {
+            id: 'assigned_at',
+            label: 'Assigned\u00a0At',
+            minWidth: 170,
+        },
+        {
+          id: 'assigned_by',
+          label: 'Assigned\u00a0By',
+          minWidth: 170,
+        },
     ];
-
-    const createRows = (index, department) => {
-      const  { name, description, document_id} = department;
-      return {
-        number: index + 1,
-        name,
-        description,
-        status:'',
-        id: document_id,
-        department,
-      }
-    };
-
-    const rows = departments.map((department, index) => createRows(index, department));    
     
+    const createRows = task => {
+        const { assigned_at, assigned_by, task_name, description, department_name, status, number_of_actions, document_id} = task;
+        return {
+            assigned_at: dayjs(assigned_at._seconds * 1000).format('h: mm a, MMMM DD YYYY'),
+            assigned_by: schedule.agent_id === assigned_by ? 'Agent' : 'Office',
+            task_name,
+            description,
+            department_name,
+            status,
+            number_of_actions, 
+            document_id, 
+            task
+        }
+    }
+
+    const rows = tasks.length > 0 ? tasks.map(task => createRows(task)) : [];
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -87,12 +89,12 @@ const Departments = ({ classes, departments, setDepartment }) => {
     setPage(0);
   };
 
-  const changeUrl = department => {
-    setDepartment(department);
-    history.push(`/departments/${department.document_id}`);
-  }
-
   return (
+   <>
+   <Typography
+   color="textSecondary"
+   variant="h6"
+   ><i>Tasks</i></Typography>
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
@@ -112,7 +114,7 @@ const Departments = ({ classes, departments, setDepartment }) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} className={classes.selectable} onClick={() => changeUrl(row.department)}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
@@ -137,10 +139,10 @@ const Departments = ({ classes, departments, setDepartment }) => {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </Paper>
+   </>
   );
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
-)(withStyles(styles)(React.memo(Departments)));
+)(withStyles(styles)(React.memo(TasksInSchedules)));

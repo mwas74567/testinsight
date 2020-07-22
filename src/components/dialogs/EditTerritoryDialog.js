@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
     UI: state.UI,
-    loading: state.territoriesData.loading
+    loading: state.territoriesData .loading
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -77,11 +77,16 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
     }
     return (
         <>    
-        <Tooltip title="Edit Territory" placement="top">
+        {/* <Tooltip title="Edit Territory" placement="top">
             <IconButton onClick={handleOpen}>
                 <EditIcon color="primary"/>
             </IconButton>
-        </Tooltip>    
+        </Tooltip>     */}
+        <Button
+        color="primary"
+        onClick={handleOpen}
+        variant="contained"
+        >Edit</Button>
         <Dialog
         fullWidth
         maxWidth="sm"

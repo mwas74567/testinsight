@@ -1,27 +1,21 @@
-// import React from 'react';
+import React from 'react';
+import TaskDetails from '../components/TaskDetails';
+import Actions from '../components/Actions';
 
+//MUI
+import Grid from '@material-ui/core/Grid';
 
-// import { connect } from 'react-redux';
+const Task = () => {
+    return (
+        <>
+            <Grid container>
+                <Grid item sm={12}>
+                    <TaskDetails />
+                    <Actions />
+                </Grid>
+            </Grid>
+        </>
+    );
+}
 
-// const mapStateToProps = state => ({
-//     tasks: state.tasksData.tasks,
-// });
-
-// const Task = props => {
-//     const { match, tasks } = props;
-//     let targetTask;
-
-//     tasks.forEach(task => {
-//         if(task.document_id === match.params.taskId) targetTask = task;
-//     });
-
-//     return (
-//         <>
-//         <TaskData task={targetTask} />
-//         </>
-//     );
-// }
-
-// export default connect(
-//     mapStateToProps,
-// )(React.memo(Task));
+export default React.memo(Task);

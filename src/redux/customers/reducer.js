@@ -30,11 +30,18 @@ const customersReducer = (state = initialState, action) => {
                 customer: action.payload,
             }
         case CHANGE_CUSTOMER:
-            state.customers.forEach((customer, customerId) => {
-                if(customer.document_id === action.payload.document_id) customer = action.payload;
+            state.customer = {
+                ...state.customer,
+                ...action.payload,
+            }
+
+            const newCustomers = state.customers;
+            state.customers.forEach((customer, index) => {
+                if(customer.document_id === state.customer.document_id) newCustomers[index] = state.customer;
             });
             return {
                 ...state,
+                customers: newCustomers,
             }
         case ADD_CUSTOMER:
             return {
