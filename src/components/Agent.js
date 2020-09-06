@@ -12,11 +12,11 @@ import Button from '@material-ui/core/Button';
 //Icons
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
-import LooksTwoIcon from '@material-ui/icons/LooksTwo';
 
 //redux
 import { connect } from 'react-redux';
 import { changeAgentStatus } from '../redux';
+import LooksTwoIcon from '@material-ui/icons/LooksTwo';
 
 const styles = theme => ({
   paper: {

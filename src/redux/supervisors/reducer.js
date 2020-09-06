@@ -6,6 +6,7 @@ const initialState = {
     supervisors: [],
     supervisor: {},
     filtered: [],
+    supervisorAgents: [],
 }
 
 const supervisorsReducer = (state = initialState, action) => {

@@ -68,7 +68,7 @@ const mapDispatchToProps = dispatch => ({
 const DepartmentDetails = ({classes, department, editDepartment}) => {
     dayjs.extend(relativeTime);
 
-    const { name, description, status  } = department;
+    const { name, description, status } = department;
 
     const activate = () => {
         editDepartment({status: 'active'}, department.document_id);

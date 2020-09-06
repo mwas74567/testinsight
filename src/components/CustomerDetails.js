@@ -14,6 +14,12 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import EditCustomerTerritoryDialog from './dialogs/EditCustomerTerritoryDialog';
+import ActivateDialog from './dialogs/ActivateDialog';
 
 //Icons
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -24,7 +30,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 //redux
-import {editCustomer} from '../redux';
+import {editCustomer,getTerritories, getCustomers} from '../redux';
 import {connect} from 'react-redux';
 
 const styles = theme => ({
@@ -70,18 +76,41 @@ const mapDispatchToProps = dispatch => ({
     editCustomer: (newInfo, customer_id) => dispatch(editCustomer(newInfo, customer_id)),
 });
 
+
+
 const CustomerDetails = ({classes, customer, editCustomer, loading}) => {
     dayjs.extend(relativeTime);
 
-    const {image_url, potential, phone_number, town, county, status, approval_status, email, address, name, document_id, g, l} = customer;
+
+    const {image_url, potential, phone_number, town, county, status, approval_status,territory_id, email, address, name, document_id, g, l, territory_name} = customer;
+    const activate = () => {
+  
+        editCustomer({status: 'active'}, customer.document_id);
+    }
+    
+    const inactivate = () => {
+        
+        editCustomer({status: 'inactive'}, customer.document_id);
+    }
+    const activateApproval = () => {
+        editCustomer({approval_status: 'approved'}, customer.document_id);
+    }
+    
+    const inactivateApproval = () => {
+        editCustomer({approval_status: 'unapproved'}, customer.document_id);
+    }
+  
     // const [status, setStatus] = React.useState(() => status);
     // const [approvalStatus, setApprovalStatus] = React.useState(() => approvalStatus);
 
-    const activateOrDiactivate = () => {
-        if(status === 'active') return editCustomer({status: 'disabled'}, document_id);
-        return editCustomer({status: 'active'}, document_id);
-    }
-
+    // const activateOrDiactivate = () => {
+    //     if(status === 'active') return editCustomer({status: 'disabled'}, document_id);
+    //     return editCustomer({status: 'active'}, document_id);
+    // }
+    // const inactivate = () => {
+    //     if(status === 'active') return editCustomer({status: 'disabled'}, document_id);
+    //     return editCustomer({status: 'active'}, document_id);
+    // }
     return (
         <Card className={classes.detailsContainer}>
                     <CardContent className={classes.infoContainer}>
@@ -109,6 +138,25 @@ const CustomerDetails = ({classes, customer, editCustomer, loading}) => {
                         <div className={classes.item}>
                             <PollIcon color="primary" /> <span className={classes.note}> Potential <strong>{potential}</strong> </span>
                         </div>
+                        {
+                             (!status || status === 'inactive' ) ?
+                             (<div className={classes.item}>
+                                <PollIcon color="primary" /> <span className={classes.note}> Territory <strong>{territory_name}</strong> </span>
+                            </div>)
+                            :
+                            (
+                             <div className={classes.item}>
+                               <PollIcon color="primary" /> <span className={classes.note}> Territory <strong>{territory_name === undefined ? 'No territory' : territory_name}</strong> </span>
+                                <EditCustomerTerritoryDialog
+                                   title="Change Territory"
+                                     label="Change Territory"
+                                     infoKey="territory_id"
+                                     type="text"
+                                     />
+                            </div>
+                            )
+                          
+                        }
                     </CardContent>
                     <Divider />
                     <CardActions>
@@ -118,17 +166,58 @@ const CustomerDetails = ({classes, customer, editCustomer, loading}) => {
                         component={Link}
                         to="/customers"
                         >Back</Button>
+
+                            {
+                            (approval_status === 'approved') ?
+                            (
+                                (!status || status === 'inactive' || territory_name === undefined ) ?
+                            (
+                                // <Button
+                                // color="primary"
+                                // variant="contained"
+                                // onClick={activate}
+                                // >ACTIVATE</Button>
+                                 
+                                <ActivateDialog
+                                dialogTitle =" Customer Activation Dialog"
+                                buttonTitle="ACTIVATE"
+                                buttonColor="primary"
+                                actionFunction ={activate}
+                               />
+                            ) : (
+                                <Button
+                                color="secondary"
+                                variant="contained"
+                                onClick={inactivate}
+                                >DEACTIVATE</Button>
+                            )
+                            ):
+                            (
+                              <Button variant="contained" disabled>
+                                PENDING APPROVAL
+                              </Button> 
+                            )
+
+                            
+                        }
                         {
-                            g && l && approval_status === 'approved' &&
+                            (!approval_status || approval_status === 'unapproved') ?
                             (
                                 <Button
+                                color="primary"
                                 variant="contained"
-                                color={status === 'active' ? 'secondary' : 'primary'}
-                                onClick={activateOrDiactivate}
-                                disabled={loading}
-                                >{status === 'active' ? 'Disable' : 'Activate'}{loading && <CircularProgress size={30} className={classes.spinner}/>}</Button>
+                                onClick={activateApproval}
+                                >APPROVE</Button>
+                            ) : (
+                                <Button
+                                color="secondary"
+                                variant="contained"
+                                onClick={inactivateApproval}
+                                >UNAPPROVE</Button>
                             )
                         }
+                   
+                        
                     </CardActions>
                 </Card>
     )

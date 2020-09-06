@@ -22,15 +22,23 @@ import { connect } from 'react-redux';
 import { setTask } from '../redux';
 
 const styles = theme => ({
-    root: {
+  root: {
     width: '100%',
     },
     container: {
-    maxHeight: 440,
+    maxHeight: 600,
+    [theme.breakpoints.up("sm")]: {
+      minHeight: 300,
+    }
+    },
+    tableImage: {
+      width: 70,
+      height: 70,
+      objectFit: 'cover',
     },
     selectable: {
       cursor: 'pointer',
-    }
+    },
 });
 
 const mapStateToProps = state => ({
@@ -56,6 +64,11 @@ const TasksSkeleton = ({ classes, tasks, setTask }) => {
             label: 'Description',
             minWidth: 170,
         },
+        {
+          id: 'department_name',
+          label: 'Department',
+          minWidth: 170,
+      },
         {
             id: 'status',
             label: 'Status',

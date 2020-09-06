@@ -1,4 +1,4 @@
-import {START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY, SET_TERRITORY} from './types';
+import {START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORIES, ADD_TERRITORY, SET_TERRITORY} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -29,7 +29,7 @@ const territoriesReducer = (state = initialState, action) => {
                 ...state,
                 territory: action.payload,
             }
-        case CHANGE_TERRITORY:
+        case CHANGE_TERRITORIES:
             state.territory = {
                 ...state.territory,
                 ...action.payload,
@@ -47,6 +47,13 @@ const territoriesReducer = (state = initialState, action) => {
                 ...state,
                 territories: [action.payload, ...state.territories],
             }
+            // case CHANGE_TERRITORY_STATUS:
+            //     state.territories.forEach((territory, territoryIndex) => {
+            //         if(territory.document_id === action.payload.territoryId){
+            //             territory.status = action.payload.status;
+            //             state.territory = territory;
+            //         }
+            //     });
         case SET_UNAUTHENTICATED:
             return initialState;
         default: return state;

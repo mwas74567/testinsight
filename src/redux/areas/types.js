@@ -1,0 +1,7 @@
+export const SET_AREA = 'SET_AREA';
+export const ADD_AREA = 'ADD_AREA';
+export const CHANGE_AREA_STATUS = 'CHANGE_AREA_STATUS';
+export const SET_AREAS = 'SET_AREAS';
+export const START_LOADING_AREAS = 'START_LOADING_AREAS';
+export const STOP_LOADING_AREAS = 'STOP_LOADING_AREAS';
+export const SET_FILTERED_AREAS = 'SET_FILTERED_AREAS';

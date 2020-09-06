@@ -36,11 +36,7 @@ const SchedulesSkeleton = ({ classes }) => {
             label: 'Status',
             minWidth: 170,
         },
-        {
-            id: 'department_name',
-            label: 'Department',
-            minWidth: 170,
-        },
+    
         {
             id: 'customer_name',
             label: 'Customer',
@@ -59,35 +55,30 @@ const SchedulesSkeleton = ({ classes }) => {
         {
             visit_date: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
             status: 'pending',
-            department_name: 'Example Department',
             customer_name: 'Example Customer',
             number_of_tasks: 0
         },
         {
             visit_date: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
             status: 'pending',
-            department_name: 'Example Department',
             customer_name: 'Example Customer',
             number_of_tasks: 0
         },
         {
             visit_date: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
             status: 'pending',
-            department_name: 'Example Department',
             customer_name: 'Example Customer',
             number_of_tasks: 0
         },
         {
             visit_date: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
             status: 'pending',
-            department_name: 'Example Department',
             customer_name: 'Example Customer',
             number_of_tasks: 0
         },
         {
             visit_date: dayjs(Date.now()).format('h: mm a, MMMM DD YYYY'),
             status: 'pending',
-            department_name: 'Example Department',
             customer_name: 'Example Customer',
             number_of_tasks: 0
         },

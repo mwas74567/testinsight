@@ -10,6 +10,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
@@ -33,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
     editInfo: newInfo => dispatch(editInfo(newInfo)),
 });
 
-const EditEntity = ({ classes, type, infoKey, title, label, credentials, errors, editInfo }) => {
+const EditEntity = ({ classes, type, infoKey, title, label, credentials, errors,distance, editInfo }) => {
 
     const [open, setOpen] = React.useState(false);
     const [entity, setEntity] = React.useState('');
@@ -91,6 +96,7 @@ const EditEntity = ({ classes, type, infoKey, title, label, credentials, errors,
                 <DialogTitle
                 >{title}</DialogTitle>
                 <DialogContent>
+                    <>
                     <form noValidate>
                         <TextField
                         name={infoKey}
@@ -99,12 +105,27 @@ const EditEntity = ({ classes, type, infoKey, title, label, credentials, errors,
                         onChange={handleChange}
                         label={label}
                         placeholder={label}
-                        error={entity.trim() === ''}
-                        helperText={entity.trim() === '' && "Cannot be empty"}
+                        // error={entity.trim() === ''}
+                        // helperText={entity.trim() === '' && "Cannot be empty"}
                         className={classes.textField}
                         fullWidth
                         />
+
+                        <FormControl className={classes.formControl}>
+                         <InputLabel id="demo-simple-select-label"></InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                           value={credentials.distance}
+                          onChange={handleChange}
+                                    >
+                          <MenuItem value={credentials.minimum_check_ins_radius}>Meters</MenuItem>
+                          <MenuItem value={credentials.minimum_check_ins_radius/1000} >Kilometres</MenuItem>
+                          </Select>
+                         </FormControl>
+                         
                     </form>
+                    </>
                 </DialogContent>
                 <DialogActions>
                     <Button

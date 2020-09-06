@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskDetails from '../components/TaskDetails';
-import Actions from '../components/Actions';
+import TaskSwipeableView from '../components/TaskSwipeableView';
 
 //MUI
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +11,7 @@ const Task = () => {
             <Grid container>
                 <Grid item sm={12}>
                     <TaskDetails />
-                    <Actions />
+                    <TaskSwipeableView />
                 </Grid>
             </Grid>
         </>

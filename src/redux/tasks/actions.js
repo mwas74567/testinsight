@@ -9,7 +9,7 @@ export const setTask = task => (async dispatch => {
     });
 
     try {
-        const res = await axios.get(`/app/taskActions/${task.document_id}`);
+        const res = await axios.get(`/client/taskActions/${task.document_id}`);
         dispatch({
             type: SET_TASK_ACTIONS,
             payload: res.data,
@@ -21,7 +21,23 @@ export const setTask = task => (async dispatch => {
         });
     }
 });
-
+export const addTask = taskInfo => (async dispatch => {
+    dispatch({type: START_LOADING_TASKS});
+    try {
+        const res = await axios.post('/client/createTask', taskInfo);
+        dispatch({type: STOP_LOADING_TASKS});
+        dispatch({
+            type: ADD_TASK,
+            payload: res.data,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_TASKS });
+    }
+});
 export const getTasks = () => (async dispatch => {
     dispatch({ type: START_LOADING });
     try {

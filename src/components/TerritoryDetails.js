@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import EditTerritory from './dialogs/EditTerritoryDialog';
+import EditTerritories from './dialogs/EditTerritoryDialog';
 
 
 //MUI
@@ -23,6 +23,7 @@ import MoreIcon from '@material-ui/icons/More';
 
 //redux
 import { connect } from 'react-redux';
+import { editTerritory } from '../redux';
 
 const styles = theme => ({
     detailsContainer: {
@@ -58,11 +59,25 @@ const styles = theme => ({
 const mapStateToProps = state => ({
     territory: state.territoriesData.territory,
 });
+const mapDispatchToProps = dispatch => ({
+    editTerritory: (newInfo, id) => dispatch( editTerritory(newInfo, id)),
+});
 
-const TerritoryDetails = ({classes, territory}) => {
+const TerritoryDetails = ({classes, territory, editTerritory}) => {
     dayjs.extend(relativeTime);
 
-    const {name, description, region, status, customer_ids} = territory;
+    const {status,name, description, region, customer_ids} = territory;
+
+    const deactivate = () => {
+        editTerritory({status:'inactive'}, territory.document_id);
+    }
+
+    const activate = () => {
+        editTerritory({status:'active'}, territory.document_id);
+        console.log(territory.document_id);
+        
+    }
+    
     return (
         <Card className={classes.detailsContainer}>
                     <CardContent className={classes.infoContainer}>
@@ -94,12 +109,29 @@ const TerritoryDetails = ({classes, territory}) => {
                         component={Link}
                         to="/territories"
                         >Back</Button>
-                        <EditTerritory oldInfo={territory} id={territory.document_id}/>
+                        <EditTerritories oldInfo={territory} id={territory.document_id}/>
+                        {
+                     ( status === 'active') ?
+                     (
+                    <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={deactivate}
+                    className={classes.buttons}
+                    >Deactivate</Button> ):(
+                    <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={activate}
+                    className={classes.buttons}
+                    >Activate</Button>
+                    )
+                       }
                     </CardActions>
                 </Card>
     )
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps,mapDispatchToProps,
 )(withStyles(styles)(React.memo(TerritoryDetails)));

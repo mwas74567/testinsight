@@ -1,5 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import ActionAnswer from './ActionAnswer';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -61,6 +62,16 @@ const Row = ({row, columns, classes}) => {
           </Collapse>
         </TableCell>
       </TableRow>
+      <TableRow>
+      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+            {
+              
+              <ActionAnswer action={row.action} /> 
+            }
+        </Collapse>
+      </TableCell>
+    </TableRow>
     </>
   )
 }
@@ -69,7 +80,7 @@ const mapStateToProps = state => ({
     task: state.tasksData.task,
 })
 
-const Actions = ({ classes, task }) => {
+const Actions = ({ classes, task, actions }) => {
 
     const columns = [
         {
@@ -92,6 +103,7 @@ const Actions = ({ classes, task }) => {
         return({
             action_name,
             action_type,
+            action,
         });
     }
 

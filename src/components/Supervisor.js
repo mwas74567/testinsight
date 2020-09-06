@@ -1,6 +1,9 @@
 import React from 'react';
 import { useCountUp } from 'react-countup';
 import { Link } from 'react-router-dom';
+import EditSupervisorDepartmentDialog from './dialogs/EditSupervisorDepartmentDialog';
+import SupervisorAgent from './SupervisorAgents';
+
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,6 +11,11 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 
 //Icons
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -104,7 +112,7 @@ const Supervisor = ({ classes, supervisor, changeSupervisorStatus }) => {
     }
 
     return (
-        <>
+      <>
         <Paper className={classes.paper}>
                 <div className={classes.profile}>
                     <div className="image-wrapper">
@@ -126,7 +134,13 @@ const Supervisor = ({ classes, supervisor, changeSupervisorStatus }) => {
                     <hr/>
                     <EqualizerIcon color="primary"/> <span>Agents Registered <strong>{supervisor.number_of_created_agents}</strong></span>
                     <hr/>
-                    <AccountBalanceIcon color="primary"/> <span>Department <strong>{supervisor.department_name}</strong></span>
+                    <AccountBalanceIcon color="primary"/> <span>Department <strong>{supervisor.department_name}</strong>
+                    <EditSupervisorDepartmentDialog
+                    title="Change Department"
+                    label="Change Department"
+                    infoKey="department_id"
+                    type="text"
+                    /></span>
                     <hr/>
                     </div>
                 </div>
@@ -154,7 +168,40 @@ const Supervisor = ({ classes, supervisor, changeSupervisorStatus }) => {
                     >Activate</Button>
                 }
             </Paper>
-        </>
+        
+         {/* <Grid container
+         >
+             <Grid item sm={12}>
+             <div className={classes.root}>
+             <AppBar position="static" color="default">
+                 <Tabs
+                 value={value}
+                 onChange={handleChange}
+                 indicatorColor="secondary"
+                 textColor="primary"
+                 variant="fullWidth"
+                 aria-label="full width tabs"
+                 >
+                 <Tab label="Visit Reports" {...a11yProps(0)} icon={<DirectionsBikeIcon />} />
+                 <Tab label="Check In Summary" {...a11yProps(1)} icon={<BeenhereIcon />}/>
+                 </Tabs>
+             </AppBar>
+             <SwipeableViews
+                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                 index={value}
+                 onChangeIndex={handleChangeIndex}
+             >
+                 <TabPanel value={value} index={0} dir={theme.direction}>
+                 <VisitReportsContainer />
+                 </TabPanel>
+                 <TabPanel value={value} index={1} dir={theme.direction}>
+                 <CheckInSummariesContainer />
+                 </TabPanel>
+             </SwipeableViews>
+             </div>
+             </Grid>
+         </Grid> */}
+         </>
     )
 }
 

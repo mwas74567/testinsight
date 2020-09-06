@@ -60,7 +60,7 @@ export const changeSupervisorStatus = (supervisorId, statusInfo) => (async dispa
 
 export const getSupervisorsByDepartment = departmentId => (async dispatch => {
     try {
-        const res = await axios.get(`/app/getSupervisorsByDepartment/${departmentId}`);
+        const res = await axios.get(`/client/getSupervisorsByDepartment/${departmentId}`);
         dispatch({
             type: SET_FILTERED_SUPERVISORS,
             payload: res.data.info,
@@ -72,3 +72,53 @@ export const getSupervisorsByDepartment = departmentId => (async dispatch => {
         });
     }
 });
+export const editSupervisor= (newInfo, supervisor_id) => (async dispatch => {
+    dispatch({type: START_LOADING});
+
+    try {
+        await axios.put(`/clientAdmin/supervisors/${supervisor_id}`, newInfo);
+        dispatch({type: STOP_LOADING});
+        dispatch(getSupervisors());
+    } catch(error) {
+        console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+export const getSupervisorAgents = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        let res = await axios.get('/clientAdmin/subcollection/supervisors');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_SUPERVISORS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+export const getSupervisorAnalytics = () => (async dispatch => {
+    dispatch({ type: START_LOADING });
+    try{
+        let res = await axios.get('/clientAdmin/subcollection/supervisors');
+        dispatch({ type: CLEAR_ERRORS });
+        dispatch({ type: STOP_LOADING });
+        dispatch({
+            type: SET_SUPERVISORS,
+            payload: res.data.info,
+        });
+    } catch(error) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+    }
+});
+

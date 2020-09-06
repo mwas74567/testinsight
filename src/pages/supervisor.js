@@ -1,5 +1,6 @@
 import React from 'react';
-import SupervisorProfile from '../components/Supervisor';
+import SupervisorAgent from '../components/Supervisor';
+import SupervisorAgentsSwipeableView from '../components/SupervisorAgentsSwipeable';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -17,15 +18,16 @@ const Supervisor = ({ classes, loading, match, supervisors, getSupervisors, setS
         document.title = 'Client | Supervisor';
     }, [supervisors]);
 
-    const component = <SupervisorProfile />;
+    
     return (
         <>
-            <Grid container>
-                <Grid item sm={12}>
-                {component}
-                </Grid>
+        <Grid container>
+            <Grid item sm={12}>
+              <SupervisorAgent />
+                <SupervisorAgentsSwipeableView />
             </Grid>
-        </>
+        </Grid>
+    </>
     )
 }
 

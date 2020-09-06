@@ -11,6 +11,15 @@ import productCategoriesReducer from './product_categories/reducer';
 import productsReducer from './products/reducer';
 import schedulesReducer from './schedules/reducer';
 import tasksReducer from './tasks/reducer';
+import regionsReducer from './regions/reducer';
+import areasReducer from './areas/reducer';
+import townsReducer from './towns/reducer';
+import visitReportsReducer from './visit_reports/reducer';
+import checkInSummaryReportsReducer from './check_in_summary_reports/reducer';
+import checkInReportsReducer from './check_in_reports/reducer';
+import taskReportsReducer from './task_reports/reducer';
+import actionReportsReducer from './action_reports/reducer';
+
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -25,6 +34,14 @@ const rootReducer = combineReducers({
     productsData: productsReducer,
     schedulesData: schedulesReducer,
     tasksData: tasksReducer,
+    areasData: areasReducer,
+    regionsData: regionsReducer,
+    townsData: townsReducer,
+    visitReportsData: visitReportsReducer,
+    checkInSummaryReportsData: checkInSummaryReportsReducer,
+    checkInReportsData: checkInReportsReducer,
+    taskReportsData: taskReportsReducer,
+    actionReportsData: actionReportsReducer,
 });
 
 export default rootReducer;

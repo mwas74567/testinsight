@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AddTasktoSchedules from './dialogs/AddTasktoSchedules';
+
 
 //Icons
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -95,6 +97,14 @@ const Schedule = ({classes, schedule, loading}) => {
                 component={Link}
                 to="/schedules"
                 >Back</Button>
+
+            {(status ==='started' || status === 'pending') &&
+             <AddTasktoSchedules
+               dialogTitle =" Add Task To Schedule"
+               buttonTitle="ADD TASK"
+               buttonColor="primary"/>
+            }
+             
             </CardActions>
         </Card>
     )

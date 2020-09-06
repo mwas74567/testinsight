@@ -1,10 +1,11 @@
-import {START_LOADING_CUSTOMERS, STOP_LOADING_CUSTOMERS, SET_CUSTOMERS, ADD_CUSTOMER, CHANGE_CUSTOMER, SET_CUSTOMER} from './types';
+import {START_LOADING_CUSTOMERS, STOP_LOADING_CUSTOMERS, SET_CUSTOMERS, ADD_CUSTOMER, CHANGE_CUSTOMER, SET_CUSTOMER,SET_FILTERED_CUSTOMERS} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
     loading: false,
     customers: [],
     customer: {},
+    filtered: [],
 }
 
 const customersReducer = (state = initialState, action) => {
@@ -43,6 +44,11 @@ const customersReducer = (state = initialState, action) => {
                 ...state,
                 customers: newCustomers,
             }
+            case SET_FILTERED_CUSTOMERS:
+                return {
+                    ...state,
+                    filtered: action.payload,
+                }
         case ADD_CUSTOMER:
             return {
                 ...state,

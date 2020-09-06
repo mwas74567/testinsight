@@ -1,5 +1,5 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import { START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORY, ADD_TERRITORY, SET_TERRITORY } from './types';
+import { START_LOADING_TERRITORIES, STOP_LOADING_TERRITORIES, SET_TERRITORIES, CHANGE_TERRITORIES, ADD_TERRITORY, SET_TERRITORY } from './types';
 import axios from 'axios';
 
 export const setTerritory = territory => (dispatch => {
@@ -51,7 +51,7 @@ export const editTerritory = (newInfo, id) => (async dispatch => {
         await axios.put(`/app/resource/territories/${id}`, newInfo);
         
         dispatch({
-            type: CHANGE_TERRITORY,
+            type: CHANGE_TERRITORIES,
             payload: newInfo,
         })
         dispatch({ type: STOP_LOADING_TERRITORIES });
@@ -63,3 +63,18 @@ export const editTerritory = (newInfo, id) => (async dispatch => {
         dispatch({ type: STOP_LOADING_TERRITORIES });
     }
 });
+// export const changeTerritoryStatus = (territoryId, statusInfo) => (async dispatch => {
+//     try{
+//         await axios.put(`/clientAdmin/subcollection/territories/${territoryId}`, statusInfo);
+//         dispatch({
+//             type: CHANGE_TERRITORY_STATUS,
+//             payload: statusInfo,
+//         });
+//         dispatch({ type: STOP_LOADING_TERRITORIES });
+//     } catch(error) {
+//         dispatch({
+//             type: SET_ERRORS,
+//             payload: error.response.data,
+//         });
+//     }
+// });

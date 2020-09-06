@@ -25,11 +25,12 @@ import territory from './pages/territory';
 import customers from './pages/customers';
 import customer from './pages/customer';
 import products from './pages/products';
+import product from './pages/product';
 import schedules from './pages/schedules';
 import schedule from './pages/schedule';
 import tasks from './pages/tasks';
 import task from './pages/task';
-// import reports from './pages/reports';
+import reports from './pages/reports';
 
 //redux
 import { Provider } from 'react-redux';
@@ -94,11 +95,12 @@ const App = () => {
             <AuthRoute path="/customers" exact component={customers} />
             <AuthRoute path="/customers/:customerId" exact component={customer} />
             <AuthRoute path="/products" exact component={products} />
+            <AuthRoute path="/products/:productId" exact component={product} />
             <AuthRoute path="/schedules" exact component={schedules} />
             <AuthRoute path="/schedules/:scheduleId" exact component={schedule} />
             <AuthRoute path="/tasks" exact component={tasks} />            
             <AuthRoute path="/tasks/:taskId" exact component={task} />            
-            {/* <AuthRoute path="/reports" exact component={reports} /> */}
+            <AuthRoute path="/reports" exact component={reports} />
           </Switch>
           </div>
         </Router>

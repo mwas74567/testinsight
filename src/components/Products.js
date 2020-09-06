@@ -1,5 +1,6 @@
 import React from 'react';
-import AddProductDialog from './dialogs/AddProductDialog';
+import {useHistory} from 'react-router-dom';
+// import AddProductDialog from './dialogs/AddProductDialog';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,7 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 //redux
 import { connect } from 'react-redux';
-import {  uploadProductImage } from '../redux';
+import {  uploadProductImage, setProduct } from '../redux';
 
 const styles = theme => ({
     root: {
@@ -41,10 +42,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   uploadProductImage: (formData, id) => dispatch(uploadProductImage(formData, id)),
+  setProduct: product => dispatch(setProduct(product)),
 })
 
-const Products = ({ classes, products, uploadProductImage }) => {
-
+const Products = ({ classes, products, uploadProductImage,setProduct }) => {
+  const history = useHistory();
     const columns = [
         {
             id: 'image_url',
@@ -63,14 +65,15 @@ const Products = ({ classes, products, uploadProductImage }) => {
         },
     ];
 
-    const createRows = (image_url, product_title, product_description, document_id) => ({
+    const createRows = (image_url, product_title, product_description, document_id,product) => ({
         image_url,
         product_title,
         product_description,
         document_id,
+        product,
     });
 
-  let rows = products.length > 0 ? products.map((product, index) => createRows(product.image_url, product.product_title, product.product_description, product.document_id)): []; 
+  let rows = products.length > 0 ? products.map((product, index) => createRows(product.image_url, product.product_title, product.product_description, product.document_id,product)): []; 
     
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -83,6 +86,11 @@ const Products = ({ classes, products, uploadProductImage }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const changeUrl = product => {
+    setProduct(product);
+    history.push(`/products/${product.document_id}`);
+  }
+  
 
   const handleImageChange = (event, id) => {
     const imageFile = event.target.files[0];
@@ -91,6 +99,7 @@ const Products = ({ classes, products, uploadProductImage }) => {
     uploadProductImage(formData, id);
 }
 
+
 const selectImage = (id) => {
     const input = document.querySelector(`#input${id}`);
     input.click();
@@ -98,7 +107,7 @@ const selectImage = (id) => {
 
   return (
     <Paper className={classes.root}>
-      <AddProductDialog />
+      {/* <AddProductDialog /> */}
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -117,22 +126,22 @@ const selectImage = (id) => {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => changeUrl(row.product)}>
                   {columns.map((column, columnIndex) => {
                     if(columnIndex === 0) {
                       return (
                         <TableCell key={column.id} align={column.align}>
                         <img src={row.image_url} alt="product" className={classes.tableImage}/>
-                        <input type="file" id={`input${row.document_id}`} onChange={event => handleImageChange(event, row.document_id)} hidden="hidden"/>
-                        <Tooltip
-                        title="Change Product Image"
-                        placement="top"
-                        >
-                            <IconButton
-                            onClick={() => selectImage(row.document_id)}
-                            className={classes.imageIcon}
-                            ><EditIcon color="primary" /></IconButton>
-                        </Tooltip>
+                      {/* <input type="file" id={`input${row.document_id}`} onChange={event => handleImageChange(event, row.document_id)} hidden="hidden"/>
+                      <Tooltip
+                      title="Change Product Image"
+                      placement="top"
+                      >
+                          <IconButton
+                          onClick={() => selectImage(row.document_id)}
+                          className={classes.imageIcon}
+                          ><EditIcon color="primary" /></IconButton>
+                      </Tooltip> */}
                         </TableCell>
                       )
                     }

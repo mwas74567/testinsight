@@ -1,4 +1,4 @@
-import {START_LOADING_PRODUCTS, STOP_LOADING_PRODUCTS, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT} from './types';
+import {START_LOADING_PRODUCTS, STOP_LOADING_PRODUCTS, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT,SET_PRODUCT} from './types';
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
@@ -24,6 +24,11 @@ const productsReducer = (state = initialState, action) => {
                 ...state,
                 products: action.payload,
             }
+            case SET_PRODUCT:
+                return {
+                    ...state,
+                    product: action.payload,
+                }
         case CHANGE_PRODUCT:
             state.products.forEach((product, productId) => {
                 if(product.document_id === action.payload.document_id) product = action.payload;

@@ -26,7 +26,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 //redux
 import { connect } from 'react-redux';
-import { getTerritories, addAgent, clearErrors, getDepartments, getSupervisorsByDepartment } from '../../redux';
+import { getTerritories, addAgent, clearErrors, getDepartments, getSupervisorsByDepartment , getCustomersByTerritory} from '../../redux';
 
 const styles = theme => ({
     textField: {
@@ -48,6 +48,7 @@ const mapStateToProps = state => ({
     territories: state.territoriesData.territories,
     departments: state.departmentsData.departments,
     supervisors: state.supervisorsData.filtered,
+    customers: state.customersData.filtered,
     loading: state.agentsData.loading,
 })
 
@@ -55,11 +56,12 @@ const mapDispatchToProps = dispatch => ({
     getTerritories: () => dispatch(getTerritories()),
     getDepartments: () => dispatch(getDepartments()),
     getSupervisorsByDepartment: departmentId => dispatch(getSupervisorsByDepartment(departmentId)),
+    getCustomersByTerritory: territoryId => dispatch(getCustomersByTerritory(territoryId)),
     addAgent: agentInfo => dispatch(addAgent(agentInfo)),
     clearErrors: () => dispatch(clearErrors()),
 });
 
-const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territories, loading, getTerritories, departments, getDepartments, supervisors, getSupervisorsByDepartment }) => {
+const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territories, loading, getTerritories, departments, getDepartments, supervisors, getSupervisorsByDepartment,getCustomersByTerritory,customers}) => {
     
     const [open, setOpen] = React.useState(false);
     React.useEffect(() => {
@@ -77,6 +79,7 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
         department_id: '',
         supervisor_id: '',
         remote_worker: 'no',
+        customer_id: '',
     });
 
     //when the agents increase, it means a request to the backend was successful
@@ -93,6 +96,7 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
             department_id: '',
             supervisor_id: '',
             remote_worker: 'no',
+            customer_id: '',
         });
         clearErrors();
     }, [agents]);
@@ -116,6 +120,7 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
                 department_id: '',
                 supervisor_id: '',
                 remote_worker: 'no',
+                customer_id: '',
             });
             clearErrors();
         }
@@ -124,6 +129,21 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
     React.useEffect(() => {
         if(agentInfo.department_id.trim() !== '') getSupervisorsByDepartment(agentInfo.department_id);
     }, [agentInfo.department_id]);
+
+    React.useEffect(() => {
+        if(agentInfo.territory_id.trim() !== '') getCustomersByTerritory(agentInfo.territory_id);
+    }, [agentInfo.territory_id]);
+
+    React.useEffect(() => {
+        if(agentInfo.agent_type === 'static'){
+          setAgentInfo({
+              ...agentInfo,
+              remote_worker : 'not_applicable'
+          })
+        } 
+    }, [agentInfo.agent_type]);
+
+
 
     //callbacks
     const handleOpen = () => {
@@ -231,6 +251,60 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
                     </MenuItem>
                 ))}
                 </TextField>
+                
+                <TextField
+                name="territory_id"
+                id="selected-territory"
+                select
+                label="Territory"
+                value={agentInfo.territory_id}
+                onChange={handleChange}
+                error={UI.errors && !!UI.errors.territory_id}
+                helperText={UI.errors && UI.errors.territory_id}
+                className={classes.textField}
+                fullWidth
+                >
+                {
+                    (territories.length === 0 && loading) ?
+                    <Typography variant="body1">please wait...</Typography> :
+                    (
+                        territories.map(territory => (
+                            <MenuItem key={territory.document_id} value={territory.document_id}>
+                            {territory.name}
+                            </MenuItem>
+                        ))
+                    )
+                }
+                </TextField>
+                {
+                  (agentInfo.agent_type === 'static') && (
+                    <TextField
+                    name="customer_id"
+                    id="selected-customer"
+                    select
+                    label="Customer"
+                    value={agentInfo.customer_id}
+                    onChange={handleChange}
+                    error={UI.errors && !!UI.errors.customer_id}
+                    helperText={UI.errors && UI.errors.customer_id}
+                    className={classes.textField}
+                    fullWidth
+                    disabled={agentInfo.territory_id === ''}
+                    >
+                    {
+                    (customers.length === 0 && loading) ?
+                    <Typography variant="body1">please wait...</Typography> :
+                    (
+                        customers.map(customer => (
+                            <MenuItem key={customer.document_id} value={customer.document_id}>
+                            {customer.name}
+                            </MenuItem>
+                        ))
+                    )
+                }
+                    </TextField>
+                  )  
+                }
                 <TextField
                 name="department_id"
                 id="selected-department"
@@ -279,30 +353,7 @@ const AddAgentDialog = ({ addAgent, clearErrors, classes, UI, agents, territorie
                     )
                 }
                 </TextField>
-                <TextField
-                name="territory_id"
-                id="selected-territory"
-                select
-                label="Territory"
-                value={agentInfo.territory_id}
-                onChange={handleChange}
-                error={UI.errors && !!UI.errors.territory_id}
-                helperText={UI.errors && UI.errors.territory_id}
-                className={classes.textField}
-                fullWidth
-                >
-                {
-                    (territories.length === 0 && loading) ?
-                    <Typography variant="body1">please wait...</Typography> :
-                    (
-                        territories.map(territory => (
-                            <MenuItem key={territory.document_id} value={territory.document_id}>
-                            {territory.name}
-                            </MenuItem>
-                        ))
-                    )
-                }
-                </TextField>
+               
                 <TextField
                 name="gender"
                 id="selected-type"

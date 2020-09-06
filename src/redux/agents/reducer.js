@@ -1,10 +1,11 @@
-import {SET_AGENT, SET_AGENTS, START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS, ADD_AGENT} from './types'
+import {SET_AGENT, SET_AGENTS, START_LOADING_AGENTS, STOP_LOADING_AGENTS, CHANGE_AGENT_STATUS, ADD_AGENT,SET_FILTERED_AGENTS} from './types'
 import { SET_UNAUTHENTICATED } from '../user/types';
 
 const initialState = {
     loading: false,
     agents: [],
     agent: {},
+    filtered : [],
 }
 
 const agentsReducer = (state = initialState, action) => {
@@ -39,6 +40,11 @@ const agentsReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+            case SET_FILTERED_AGENTS:
+                return {
+                    ...state,
+                    filtered: action.payload,
+                }
         case SET_AGENT:
             return {
                 ...state,

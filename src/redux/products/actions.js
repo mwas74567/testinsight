@@ -1,5 +1,5 @@
 import { SET_ERRORS, CLEAR_ERRORS, START_LOADING, STOP_LOADING } from '../UI/types';
-import {START_LOADING_PRODUCTS, STOP_LOADING_PRODUCTS, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT} from './types';
+import {START_LOADING_PRODUCTS, STOP_LOADING_PRODUCTS, SET_PRODUCTS, CHANGE_PRODUCT, ADD_PRODUCT,SET_PRODUCT} from './types';
 import axios from 'axios';
 
 export const getProducts = () => (async dispatch => {
@@ -60,6 +60,29 @@ export const addProduct = (productInfo, formData) => (async dispatch => {
         }
     } catch(error) {
         console.error(error);
+        dispatch({
+            type: SET_ERRORS,
+            payload: error.response.data,
+        });
+        dispatch({ type: STOP_LOADING_PRODUCTS });
+    }
+});
+export const setProduct = product => (dispatch => {
+    dispatch({
+        type: SET_PRODUCT,
+        payload: product,
+    });
+});
+export const editProductInfo = (newInfo, id) => (async dispatch => {
+    dispatch({type: START_LOADING_PRODUCTS});
+    try{
+        await axios.put(`/clientAdmin/products/${id}`, newInfo);
+        dispatch({
+            type: CHANGE_PRODUCT,
+            payload: newInfo,
+        })
+        dispatch({ type: STOP_LOADING_PRODUCTS });
+    } catch(error) {
         dispatch({
             type: SET_ERRORS,
             payload: error.response.data,

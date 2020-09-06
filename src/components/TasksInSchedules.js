@@ -37,15 +37,20 @@ const mapStateToProps = state => ({
 
 const TasksInSchedules = ({ classes, tasks, schedule }) => {
 
-    const columns = [
+    const columns = [    
+      {
+        id: 'task_name',
+        label: 'Task\u00a0Name ',
+        minWidth: 170,
+     },
+     {
+      id: 'description',
+      label: 'Description',
+      minWidth: 170,
+     }, 
         {
-            id: 'task_name',
-            label: 'Name',
-            minWidth: 170,
-        },
-        {
-            id: 'description',
-            label: 'Description',
+            id: 'status',
+            label: 'Status',
             minWidth: 170,
         },
         {
@@ -57,7 +62,7 @@ const TasksInSchedules = ({ classes, tasks, schedule }) => {
           id: 'assigned_by',
           label: 'Assigned\u00a0By',
           minWidth: 170,
-        },
+        }, 
     ];
     
     const createRows = task => {
@@ -94,7 +99,7 @@ const TasksInSchedules = ({ classes, tasks, schedule }) => {
    <Typography
    color="textSecondary"
    variant="h6"
-   ><i>Tasks</i></Typography>
+   ><i>Assigned Tasks</i></Typography>
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">

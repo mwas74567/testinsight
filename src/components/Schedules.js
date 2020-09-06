@@ -27,11 +27,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const styles = theme => ({
-    root: {
+  root: {
     width: '100%',
     },
     container: {
-    maxHeight: 440,
+    maxHeight: 600,
+    [theme.breakpoints.up("sm")]: {
+      minHeight: 300,
+    }
+    },
+    tableImage: {
+      width: 70,
+      height: 70,
+      objectFit: 'cover',
     },
     selectable: {
       cursor: 'pointer',
@@ -50,41 +58,43 @@ const Schedules = ({ classes, schedules, setSchedule }) => {
         {
             id: 'visit_date',
             label: 'Visit\u00a0Date',
-            minWidth: 170,
+            minWidth: 180,
         },
         {
             id: 'status',
             label: 'Status',
-            minWidth: 170,
+            minWidth: 180,
         },
         {
-            id: 'department_name',
-            label: 'Department',
-            minWidth: 170,
+          id: 'department_name',
+          label: 'Department',
+          minWidth: 180,
+          align: 'left',
         },
+        
         {
             id: 'customer_name',
             label: 'Customer',
-            minWidth: 170,
+            minWidth: 180,
             align: 'right',
         },
         {
             id: 'number_of_tasks',
             label: 'Number\u00a0Of\u00a0Tasks',
-            minWidth: 170,
+            minWidth: 180,
             align: 'right',
         }
     ];
 
     const createRows = schedule => {
-        const { visit_date, status, department_name, customer_name, number_of_tasks } = schedule;
+        const { visit_date, status, customer_name, number_of_tasks,department_name} = schedule;
         return ({
             visit_date: dayjs(visit_date._seconds * 1000).format('h: mm a, MMMM DD YYYY'),
-            status,
-            department_name, 
+            status, 
             customer_name,
             number_of_tasks,
             schedule,
+            department_name,
         });
     }
 

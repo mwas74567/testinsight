@@ -95,8 +95,7 @@ const EditDepartmentDialog = ({  editDepartment, classes, UI, oldInfo, id, loadi
             <DialogTitle>
                 Edit Department
             </DialogTitle>
-            <DialogContent
-            >
+            <DialogContent>
                 <form noValidate>
                 {/* <TextField
                 name="name"

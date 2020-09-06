@@ -8,7 +8,7 @@ export const setSchedule = schedule => ( async dispatch => {
         payload: schedule,
     });
     try {
-        let res = await axios.get(`/app/tasksInSchedule/${schedule.document_id}`);
+        let res = await axios.get(`/client/tasksInSchedule/${schedule.document_id}`);
         dispatch({
             type: SET_SCHEDULE_TASKS,
             payload: res.data,

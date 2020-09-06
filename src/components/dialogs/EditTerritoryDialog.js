@@ -67,6 +67,7 @@ const EditTerritoryDialog = ({ editTerritory, classes, UI, oldInfo, id, loading 
             editTerritory(territoryInfo, id);
         }
         if(territoryInfo.name === oldInfo.name && territoryInfo.description === oldInfo.description && territoryInfo.region === oldInfo.region) handleClose();
+        setOpen(false);
     }
 
     const handleChange = event => {
